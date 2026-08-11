@@ -1,0 +1,51 @@
+@import "@fontsource-variable/alexandria";
+@import "@fontsource/tajawal/400.css";
+@import "@fontsource/tajawal/500.css";
+@import "@fontsource/tajawal/700.css";
+
+:root {
+  --color-warm-white: #fbf7f1;
+  --color-ink: #123134;
+  --color-muted: #627274;
+  --color-teal: #0c6a70;
+  --color-teal-deep: #073b41;
+  --color-mint: #bfe8df;
+  --color-pink: #e9a8b8;
+  --font-display: "Alexandria Variable", "Alexandria", "Tajawal", system-ui, sans-serif;
+  --font-ui: "Tajawal", "Alexandria Variable", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-warm-white);
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--color-warm-white);
+  color: var(--color-ink);
+  font-family: var(--font-ui);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(233, 168, 184, 0.92);
+  outline-offset: 4px;
+}

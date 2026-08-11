@@ -1,0 +1,271 @@
+.heroShell {
+  width: 100%;
+  padding-bottom: 0;
+  background: var(--color-warm-white);
+}
+
+.desktopHeroShell {
+  display: block;
+}
+
+.heroPanel {
+  position: relative;
+  isolation: isolate;
+  width: min(94vw, 1480px);
+  height: clamp(650px, 76vh, 820px);
+  min-height: 650px;
+  margin-inline: auto;
+  overflow: hidden;
+  border-radius: clamp(30px, 3vw, 40px);
+  background: #0a3136;
+}
+
+.background {
+  z-index: -5;
+  object-fit: cover;
+  object-position: 58% 50%;
+}
+
+.photoOverlay,
+.textOverlay,
+.doctorShade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.photoOverlay {
+  z-index: -4;
+  background:
+    linear-gradient(180deg, rgba(7, 41, 45, 0.08) 0%, rgba(7, 41, 45, 0.12) 48%, rgba(7, 41, 45, 0.24) 100%),
+    radial-gradient(circle at 18% 40%, rgba(233, 168, 184, 0.08), transparent 20%);
+}
+
+.textOverlay {
+  z-index: -3;
+  background:
+    linear-gradient(270deg, rgba(8, 58, 63, 0.74) 0%, rgba(8, 58, 63, 0.6) 16%, rgba(8, 58, 63, 0.36) 28%, rgba(8, 58, 63, 0.14) 42%, transparent 58%),
+    radial-gradient(ellipse at 70% 34%, rgba(8, 58, 63, 0.18) 0%, rgba(8, 58, 63, 0.08) 22%, transparent 48%);
+}
+
+.doctorShade {
+  z-index: -2;
+  background: radial-gradient(ellipse at 24% 69%, rgba(1, 20, 24, 0.16) 0%, rgba(4, 47, 52, 0.08) 28%, transparent 50%);
+}
+
+.paths {
+  position: absolute;
+  right: -7%;
+  bottom: 14%;
+  z-index: 3;
+  width: 88%;
+  height: 62%;
+  overflow: visible;
+  fill: none;
+  pointer-events: none;
+}
+
+.paths path {
+  stroke: rgba(255, 255, 255, 0.62);
+  stroke-width: 1.3;
+}
+
+.paths circle {
+  fill: var(--color-pink);
+  stroke: rgba(255, 255, 255, 0.62);
+  stroke-width: 2;
+}
+
+.content {
+  position: absolute;
+  top: 28%;
+  right: clamp(38px, 5.8vw, 84px);
+  z-index: 8;
+  display: grid;
+  width: min(39vw, 540px);
+  max-width: 540px;
+  gap: 16px;
+  text-align: right;
+  transform: translateY(-24px);
+}
+
+.eyebrow {
+  width: fit-content;
+  margin: 0;
+  color: #d6fff6;
+  font-size: clamp(1rem, 1.35vw, 1.16rem);
+  font-weight: 700;
+  line-height: 1.5;
+  text-shadow: 0 1px 16px rgba(0, 0, 0, 0.38);
+}
+
+.title {
+  min-height: 74px;
+  margin: 0;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: clamp(1.72rem, 1.9vw, 2.06rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: 0;
+  text-wrap: balance;
+  text-shadow: 0 10px 34px rgba(0, 0, 0, 0.36);
+}
+
+.accentLine {
+  position: relative;
+  width: min(220px, 42%);
+  height: 3px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, rgba(191, 232, 223, 0), var(--color-mint) 72%, rgba(191, 232, 223, 0.95));
+}
+
+.accentLine::after {
+  position: absolute;
+  inset-inline-end: -2px;
+  top: -2px;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--color-pink);
+  content: "";
+}
+
+.actions {
+  position: relative;
+  z-index: 12;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: -8px;
+}
+
+.doctorWrap {
+  position: absolute;
+  left: clamp(18px, 4.2vw, 76px);
+  bottom: -20px;
+  z-index: 7;
+  width: clamp(456px, 40vw, 670px);
+  aspect-ratio: 1;
+  pointer-events: none;
+}
+
+.doctorWrap::after {
+  position: absolute;
+  right: 9%;
+  bottom: 0;
+  left: 9%;
+  z-index: 2;
+  height: 25%;
+  background: linear-gradient(180deg, rgba(251, 247, 241, 0), rgba(251, 247, 241, 0.88) 74%, var(--color-warm-white));
+  content: "";
+  pointer-events: none;
+}
+
+.doctor {
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.08));
+  opacity: 0;
+  transform: translateY(34px) scale(0.975);
+  animation: doctorEnter 1350ms cubic-bezier(0.2, 0.74, 0.24, 1) 120ms forwards;
+}
+
+.lowerTransition {
+  position: absolute;
+  right: -10px;
+  bottom: -2px;
+  z-index: 5;
+  width: calc(100% + 20px);
+  height: clamp(182px, 21vh, 240px);
+  pointer-events: none;
+}
+
+.lowerFill {
+  fill: var(--color-warm-white);
+}
+
+.lowerStrokeMint {
+  fill: none;
+  stroke: rgba(191, 232, 223, 0.94);
+  stroke-linecap: round;
+  stroke-width: 3.75;
+}
+
+.lowerStrokePink {
+  fill: none;
+  stroke: rgba(233, 168, 184, 0.84);
+  stroke-linecap: round;
+  stroke-width: 2.2;
+  transform: translateY(-6px);
+}
+
+@media (max-width: 1279px) {
+  .content {
+    top: 24%;
+    width: min(43vw, 520px);
+    transform: translateY(-18px);
+  }
+
+  .title {
+    font-size: clamp(1.58rem, 2.25vw, 1.95rem);
+  }
+
+  .doctorWrap {
+    left: -4px;
+    bottom: -18px;
+    width: clamp(410px, 44vw, 585px);
+  }
+}
+
+@media (max-width: 1023px) {
+  .heroPanel {
+    width: min(92vw, 920px);
+    height: clamp(680px, 82svh, 780px);
+    min-height: 680px;
+  }
+
+  .content {
+    top: 18%;
+    right: clamp(28px, 6vw, 56px);
+    width: min(56vw, 500px);
+    transform: translateY(-16px);
+  }
+
+  .title {
+    min-height: 58px;
+    font-size: clamp(1.34rem, 2.7vw, 1.72rem);
+  }
+
+  .doctorWrap {
+    left: -24px;
+    bottom: -16px;
+    width: clamp(384px, 50vw, 530px);
+  }
+}
+
+@keyframes doctorEnter {
+  from {
+    opacity: 0;
+    transform: translateY(34px) scale(0.975);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 767px) {
+  .desktopHeroShell {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .doctor {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}

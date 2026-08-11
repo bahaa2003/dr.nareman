@@ -1,0 +1,533 @@
+.about {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(78px, 7vw, 112px) 0 clamp(86px, 8vw, 128px);
+  background:
+    radial-gradient(circle at 76% 22%, rgba(191, 232, 223, 0.34), transparent 29%),
+    linear-gradient(180deg, var(--color-warm-white) 0%, #f5fbf8 58%, var(--color-warm-white) 100%);
+  color: var(--color-ink);
+}
+
+.inner {
+  position: relative;
+  width: min(92vw, 1420px);
+  min-height: clamp(760px, 78vh, 900px);
+  margin-inline: auto;
+}
+
+.backgroundName {
+  position: absolute;
+  top: 34%;
+  left: 4%;
+  z-index: 0;
+  color: rgba(7, 59, 65, 0.045);
+  font-family: var(--font-display);
+  font-size: clamp(6.2rem, 13vw, 13.8rem);
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.organicShape {
+  position: absolute;
+  top: 18%;
+  left: 14%;
+  z-index: 0;
+  width: min(45vw, 620px);
+  aspect-ratio: 0.86;
+  border-radius: 45% 55% 52% 48%;
+  background:
+    radial-gradient(circle at 44% 36%, rgba(255, 255, 255, 0.72), transparent 34%),
+    linear-gradient(155deg, rgba(191, 232, 223, 0.46), rgba(233, 168, 184, 0.2));
+  pointer-events: none;
+}
+
+.header {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  width: 100%;
+  gap: 12px;
+  padding-inline-start: 0;
+}
+
+.label {
+  display: grid;
+  width: min(520px, 100%);
+  grid-template-columns: minmax(42px, 1fr) auto minmax(42px, 1fr);
+  align-items: center;
+  justify-self: center;
+  gap: clamp(14px, 2vw, 28px);
+  margin: 0;
+  color: var(--color-teal);
+  font-family: var(--font-display);
+  font-size: clamp(1.08rem, 1.6vw, 1.45rem);
+  font-weight: 720;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.labelLine {
+  display: block;
+  height: 1px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(204, 83, 148, 0.18), rgba(47, 143, 134, 0.34));
+}
+
+.heading {
+  width: min(850px, 74vw);
+  margin: 0;
+  color: var(--color-teal-deep);
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5.1vw, 5.65rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.heading > span > span {
+  display: block;
+}
+
+.heading span span:last-child br {
+  display: none;
+}
+
+.scene {
+  position: relative;
+  z-index: 2;
+  min-height: clamp(610px, 64vh, 720px);
+  margin-top: clamp(24px, 4vw, 54px);
+}
+
+.copy {
+  position: absolute;
+  right: clamp(8px, 3vw, 44px);
+  bottom: clamp(148px, 14vw, 196px);
+  z-index: 7;
+  display: grid;
+  width: min(440px, 34vw);
+}
+
+.copy p {
+  margin: 0;
+  color: #50696b;
+  font-size: clamp(1.02rem, 1.16vw, 1.13rem);
+  font-weight: 500;
+  line-height: 1.95;
+}
+
+.actionSlot {
+  position: absolute;
+  right: clamp(8px, 3vw, 44px);
+  bottom: clamp(74px, 8vw, 112px);
+  z-index: 7;
+}
+
+.cta {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 54px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid rgba(191, 232, 223, 0.34);
+  border-radius: 999px;
+  padding: 0 28px;
+  background: linear-gradient(135deg, var(--color-teal-deep), var(--color-teal));
+  color: #fff;
+  font-weight: 700;
+  box-shadow: inset 0 -2px 0 rgba(233, 168, 184, 0.48), 0 16px 34px rgba(7, 59, 65, 0.13);
+  transition: transform 220ms ease, box-shadow 220ms ease, background 220ms ease;
+}
+
+.cta svg {
+  transition: transform 220ms ease;
+}
+
+.experience {
+  position: absolute;
+  top: clamp(28px, 4vw, 62px);
+  left: clamp(40px, 12vw, 190px);
+  z-index: 3;
+  display: grid;
+  color: var(--color-teal-deep);
+  text-align: center;
+}
+
+.experienceNumber {
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: center;
+  direction: ltr;
+  font-family: var(--font-display);
+  font-size: clamp(8.4rem, 15vw, 14rem);
+  font-weight: 700;
+  line-height: 0.82;
+  letter-spacing: 0;
+}
+
+.digits {
+  display: inline-block;
+  min-width: 1.12em;
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.experienceLabel {
+  margin-top: 10px;
+  color: #cc5394;
+  font-size: clamp(1.08rem, 1.5vw, 1.48rem);
+  font-weight: 700;
+}
+
+.doctorVisual {
+  position: absolute;
+  left: clamp(190px, 28vw, 460px);
+  bottom: -18px;
+  z-index: 5;
+  width: clamp(430px, 44vw, 660px);
+  height: clamp(590px, 66vw, 790px);
+  margin: 0;
+  pointer-events: none;
+}
+
+.visualCurve {
+  position: absolute;
+  right: -28%;
+  bottom: 14%;
+  z-index: 1;
+  width: 92%;
+  height: auto;
+  fill: none;
+  opacity: 0.58;
+}
+
+.visualCurve path {
+  stroke: rgba(47, 143, 134, 0.52);
+  stroke-width: 1.25;
+}
+
+.visualCurve circle {
+  fill: #cc5394;
+}
+
+.imageStack {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: visible;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 48%, #000 0%, #000 68%, rgba(0, 0, 0, 0.82) 78%, transparent 94%);
+  mask-image: radial-gradient(ellipse at 50% 48%, #000 0%, #000 68%, rgba(0, 0, 0, 0.82) 78%, transparent 94%);
+}
+
+.poseLayer {
+  position: absolute;
+  inset: 0;
+}
+
+.doctorImage {
+  object-fit: contain;
+  object-position: center bottom;
+  filter: saturate(1.04) contrast(1.04) drop-shadow(0 20px 34px rgba(7, 59, 65, 0.16));
+}
+
+.credentials {
+  position: absolute;
+  left: clamp(8px, 2vw, 34px);
+  bottom: clamp(36px, 6vw, 78px);
+  z-index: 7;
+  width: min(390px, 31vw);
+  padding-inline-start: 26px;
+}
+
+.credentialsLine {
+  position: absolute;
+  top: 6px;
+  bottom: 8px;
+  right: 0;
+  width: 2px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #cc5394, #72bdab);
+  transform-origin: top center;
+}
+
+.credentials ol {
+  display: grid;
+  gap: 22px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.credentials li {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.credentialIndex {
+  color: rgba(47, 143, 134, 0.66);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.credentialCopy {
+  display: grid;
+  gap: 5px;
+}
+
+.credentialCopy strong {
+  color: var(--color-teal-deep);
+  font-family: var(--font-display);
+  font-size: clamp(1.02rem, 1.24vw, 1.22rem);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.credentialCopy span {
+  color: #5b7374;
+  font-size: 0.94rem;
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+@media (hover: hover) {
+  .cta:hover {
+    transform: translateY(-2px);
+    box-shadow: inset 0 -2px 0 rgba(233, 168, 184, 0.62), 0 20px 40px rgba(7, 59, 65, 0.16);
+  }
+
+  .cta:hover svg {
+    transform: translateX(-4px);
+  }
+}
+
+@media (max-width: 1180px) {
+  .inner {
+    min-height: 840px;
+  }
+
+  .header {
+    width: min(780px, 82vw);
+  }
+
+  .scene {
+    min-height: 680px;
+  }
+
+  .doctorVisual {
+    left: clamp(170px, 25vw, 300px);
+    width: clamp(420px, 50vw, 600px);
+    height: clamp(570px, 70vw, 720px);
+  }
+
+  .experience {
+    left: clamp(18px, 8vw, 92px);
+  }
+
+  .copy {
+    width: min(390px, 38vw);
+  }
+
+  .credentials {
+    width: min(350px, 34vw);
+  }
+}
+
+@media (max-width: 900px) {
+  .about {
+    padding: 68px 0 88px;
+  }
+
+  .inner {
+    display: grid;
+    min-height: auto;
+    gap: 28px;
+  }
+
+  .header {
+    width: auto;
+    padding-inline-start: 0;
+  }
+
+  .label {
+    width: min(520px, 100%);
+  }
+
+  .heading {
+    font-size: clamp(2.55rem, 8.4vw, 4.25rem);
+  }
+
+  .scene {
+    display: grid;
+    min-height: auto;
+    gap: 24px;
+    margin-top: 0;
+  }
+
+  .copy,
+  .actionSlot,
+  .experience,
+  .doctorVisual,
+  .credentials {
+    position: relative;
+    inset: auto;
+    width: auto;
+  }
+
+  .copy {
+    order: 1;
+    max-width: 640px;
+  }
+
+  .experience {
+    order: 2;
+    justify-self: start;
+    text-align: start;
+  }
+
+  .experienceNumber {
+    justify-content: flex-start;
+    font-size: clamp(6rem, 18vw, 10rem);
+  }
+
+  .doctorVisual {
+    order: 3;
+    justify-self: center;
+    width: min(82vw, 560px);
+    height: clamp(560px, 104vw, 720px);
+  }
+
+  .credentials {
+    order: 4;
+    max-width: 620px;
+    padding-inline-start: 0;
+    padding-inline-end: 24px;
+  }
+
+  .actionSlot {
+    order: 5;
+  }
+
+  .credentialsLine {
+    right: auto;
+    left: auto;
+    inset-inline-start: 0;
+  }
+
+  .backgroundName {
+    top: 38%;
+    left: 50%;
+    font-size: clamp(5rem, 22vw, 10rem);
+    transform: translateX(-50%);
+  }
+
+  .organicShape {
+    top: 36%;
+    left: 50%;
+    width: min(84vw, 560px);
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 520px) {
+  .about {
+    padding: 58px 0 76px;
+  }
+
+  .inner {
+    width: min(90vw, 430px);
+    gap: 22px;
+  }
+
+  .label {
+    gap: 12px;
+    grid-template-columns: minmax(32px, 1fr) auto minmax(32px, 1fr);
+    font-size: 1.04rem;
+  }
+
+  .heading {
+    font-size: clamp(1.72rem, 8.8vw, 2.32rem);
+    line-height: 1.12;
+  }
+
+  .copy {
+    max-width: none;
+  }
+
+  .copy p {
+    font-size: 0.98rem;
+    line-height: 1.86;
+  }
+
+  .cta {
+    width: 100%;
+    min-height: 52px;
+    padding-inline: 20px;
+  }
+
+  .experienceNumber {
+    font-size: clamp(5.2rem, 25vw, 7.3rem);
+  }
+
+  .experienceLabel {
+    margin-top: 4px;
+    font-size: 1.08rem;
+  }
+
+  .doctorVisual {
+    width: min(92vw, 390px);
+    height: clamp(460px, 128vw, 560px);
+    margin-top: -4px;
+  }
+
+  .visualCurve {
+    right: -34%;
+    bottom: 16%;
+    width: 110%;
+  }
+
+  .credentials {
+    padding-inline-end: 18px;
+  }
+
+  .credentials ol {
+    gap: 18px;
+  }
+
+  .credentials li {
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 10px;
+  }
+}
+
+@media (max-width: 374px) {
+  .inner {
+    width: 88vw;
+  }
+
+  .heading {
+    font-size: clamp(1.52rem, 8.4vw, 1.9rem);
+  }
+
+  .doctorVisual {
+    width: min(92vw, 330px);
+    height: 430px;
+  }
+
+  .experienceNumber {
+    font-size: clamp(4.6rem, 23vw, 6.2rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta,
+  .cta svg {
+    transition: none;
+  }
+}

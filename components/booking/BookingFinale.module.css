@@ -1,0 +1,431 @@
+.booking {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(48px, 6vw, 84px) 0 clamp(56px, 7vw, 92px);
+  background:
+    linear-gradient(180deg, #fbf7f1 0%, #f5eee8 42%, #fbf7f1 100%);
+}
+
+.outer {
+  width: min(92vw, 1420px);
+  margin: 0 auto;
+}
+
+.scene {
+  position: relative;
+  isolation: isolate;
+  min-height: clamp(540px, 43vw, 650px);
+  overflow: hidden;
+  border: 1px solid rgba(255, 250, 246, 0.14);
+  border-radius: clamp(34px, 4vw, 56px);
+  background:
+    radial-gradient(circle at 18% 28%, rgba(114, 189, 171, 0.34), transparent 33%),
+    radial-gradient(circle at 73% 8%, rgba(204, 83, 148, 0.16), transparent 28%),
+    linear-gradient(135deg, #2f8f86 0%, #16716f 42%, #073b41 100%);
+  color: #fffaf6;
+  box-shadow: 0 28px 70px rgba(7, 59, 65, 0.2);
+}
+
+.scene::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(7, 59, 65, 0.58), transparent 52%),
+    radial-gradient(circle at 52% 98%, rgba(191, 232, 223, 0.16), transparent 36%);
+}
+
+.backgroundWord {
+  position: absolute;
+  top: clamp(18px, 3vw, 42px);
+  right: clamp(4px, 1.2vw, 22px);
+  z-index: -1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 250, 246, 0.14);
+  font-family: var(--font-display);
+  font-size: clamp(5.8rem, 12.5vw, 13.5rem);
+  font-weight: 720;
+  line-height: 0.9;
+  opacity: 0.44;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.content {
+  position: relative;
+  display: grid;
+  min-height: inherit;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 400px);
+  grid-template-rows: 1fr auto;
+  gap: clamp(24px, 3.2vw, 46px);
+  padding: clamp(34px, 4.8vw, 66px);
+}
+
+.primaryZone {
+  position: relative;
+  z-index: 2;
+  align-self: center;
+  width: min(680px, 100%);
+  padding: clamp(12px, 1.4vw, 20px) 0;
+}
+
+.eyebrow {
+  margin: 0 0 16px;
+  color: #f3c2cf;
+  font-size: clamp(0.98rem, 1.2vw, 1.12rem);
+  font-weight: 800;
+}
+
+.heading {
+  margin: 0;
+  color: #fffaf6;
+  font-family: var(--font-display);
+  max-width: 690px;
+  font-size: clamp(2.3rem, 4.45vw, 4.75rem);
+  font-weight: 720;
+  line-height: 1.12;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.lead {
+  width: min(620px, 100%);
+  margin: 18px 0 0;
+  color: rgba(255, 250, 246, 0.8);
+  font-size: clamp(1.02rem, 1.35vw, 1.2rem);
+  font-weight: 500;
+  line-height: 1.9;
+}
+
+.bookingCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 62px;
+  margin-top: 28px;
+  padding: 0 30px;
+  border: 1px solid rgba(255, 250, 246, 0.72);
+  border-radius: 999px;
+  background: #fffaf6;
+  color: #073b41;
+  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  font-weight: 900;
+  box-shadow: 0 18px 44px rgba(3, 31, 35, 0.22);
+  transition:
+    background 240ms ease,
+    border-color 240ms ease,
+    color 240ms ease,
+    transform 240ms ease,
+    box-shadow 240ms ease;
+}
+
+.bookingCta:hover {
+  border-color: rgba(233, 168, 184, 0.8);
+  background: #dff8f0;
+  color: #052f34;
+  box-shadow: 0 22px 54px rgba(3, 31, 35, 0.26);
+  transform: translateY(-4px);
+}
+
+.ctaArrow {
+  transition: transform 240ms ease;
+}
+
+.bookingCta:hover .ctaArrow {
+  transform: translateX(-5px);
+}
+
+.locationPreview {
+  position: relative;
+  z-index: 2;
+  align-self: center;
+  overflow: hidden;
+  border: 1px solid rgba(255, 250, 246, 0.18);
+  border-radius: 34px;
+  background: rgba(255, 250, 246, 0.1);
+  box-shadow: 0 20px 48px rgba(3, 31, 35, 0.16);
+  backdrop-filter: blur(14px);
+}
+
+.mapWindow {
+  position: relative;
+  height: clamp(172px, 15vw, 210px);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(233, 168, 184, 0.26), transparent 22%),
+    linear-gradient(135deg, rgba(255, 250, 246, 0.16), rgba(191, 232, 223, 0.1));
+}
+
+.mapLines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.mapLines path {
+  fill: none;
+  stroke: rgba(255, 250, 246, 0.34);
+  stroke-width: 2;
+}
+
+.mapPin {
+  position: absolute;
+  top: 48%;
+  right: 48%;
+  display: grid;
+  width: 54px;
+  height: 54px;
+  place-items: center;
+  border: 1px solid rgba(255, 250, 246, 0.44);
+  border-radius: 999px;
+  background: #fffaf6;
+  color: #cc5394;
+  box-shadow: 0 16px 36px rgba(3, 31, 35, 0.18);
+  transform: translate(50%, -50%);
+}
+
+.locationCopy {
+  display: grid;
+  gap: 14px;
+  padding: 22px;
+}
+
+.locationLabel {
+  color: rgba(255, 250, 246, 0.76);
+  font-size: 0.94rem;
+  font-weight: 800;
+}
+
+.mapLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 18px;
+  border: 1px solid rgba(255, 250, 246, 0.2);
+  border-radius: 999px;
+  background: rgba(7, 59, 65, 0.34);
+  color: #ffffff;
+  font-weight: 800;
+  transition:
+    background 220ms ease,
+    border-color 220ms ease,
+    transform 220ms ease;
+}
+
+.mapLink:hover {
+  border-color: rgba(233, 168, 184, 0.68);
+  background: rgba(7, 59, 65, 0.56);
+  transform: translateY(-2px);
+}
+
+.schedule {
+  position: relative;
+  z-index: 2;
+  grid-column: 1 / -1;
+  padding: clamp(18px, 2.4vw, 26px);
+  border: 1px solid rgba(255, 250, 246, 0.16);
+  border-radius: 32px;
+  background: rgba(7, 59, 65, 0.22);
+}
+
+.scheduleHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 12px;
+  color: rgba(255, 250, 246, 0.84);
+  font-weight: 800;
+}
+
+.scheduleHeader span {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.route {
+  position: relative;
+  min-height: 118px;
+}
+
+.routeSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.routeSvg path {
+  fill: none;
+  stroke: url("#bookingRouteGradient");
+  stroke-linecap: round;
+  stroke-width: 3;
+}
+
+.days {
+  position: relative;
+  display: grid;
+  min-height: 118px;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+}
+
+.day {
+  position: relative;
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  justify-self: center;
+  gap: 10px;
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: clamp(1.28rem, 2.2vw, 2rem);
+  font-weight: 720;
+}
+
+.day::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border: 3px solid #f3c2cf;
+  border-radius: 999px;
+  background: #fffaf6;
+  box-shadow: 0 0 0 8px rgba(255, 250, 246, 0.08);
+}
+
+@media (max-width: 1023px) {
+  .scene {
+    min-height: auto;
+  }
+
+  .content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .primaryZone {
+    align-self: start;
+  }
+
+  .locationPreview {
+    width: min(560px, 100%);
+    justify-self: start;
+  }
+}
+
+@media (max-width: 767px) {
+  .booking {
+    padding: 44px 0 64px;
+  }
+
+  .outer {
+    width: min(92vw, 1420px);
+  }
+
+  .scene {
+    border-radius: 32px;
+  }
+
+  .backgroundWord {
+    top: 16px;
+    right: -8px;
+    font-size: clamp(4.7rem, 22vw, 6.6rem);
+  }
+
+  .content {
+    padding: 28px 20px 22px;
+  }
+
+  .heading {
+    font-size: clamp(1.82rem, 8.5vw, 2.62rem);
+  }
+
+  .lead {
+    margin-top: 18px;
+    font-size: 0.98rem;
+    line-height: 1.82;
+  }
+
+  .bookingCta {
+    width: 100%;
+    min-height: 58px;
+    justify-content: center;
+    margin-top: 26px;
+    padding: 0 18px;
+  }
+
+  .mapWindow {
+    height: 176px;
+  }
+
+  .locationCopy {
+    padding: 18px;
+  }
+
+  .schedule {
+    padding: 20px 16px;
+    border-radius: 26px;
+  }
+
+  .scheduleHeader {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .route {
+    min-height: 230px;
+  }
+
+  .routeSvg {
+    inset: 4px auto 4px 50%;
+    width: 120px;
+    transform: translateX(-50%) rotate(90deg);
+  }
+
+  .days {
+    min-height: 230px;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    align-items: center;
+  }
+
+  .day {
+    justify-self: start;
+    padding-inline-start: 18px;
+    font-size: clamp(1.22rem, 6vw, 1.55rem);
+  }
+}
+
+@media (max-width: 360px) {
+  .content {
+    padding-inline: 18px;
+  }
+
+  .bookingCta {
+    font-size: 0.96rem;
+  }
+
+  .mapLink {
+    font-size: 0.92rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bookingCta,
+  .bookingCta .ctaArrow,
+  .mapLink {
+    transition: none;
+  }
+
+  .bookingCta:hover,
+  .mapLink:hover {
+    transform: none;
+  }
+}
