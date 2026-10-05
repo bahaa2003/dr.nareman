@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
-import { ArrowUp, ExternalLink } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import { footerContent } from "@/data/footer";
+import { SocialPlatformIcon } from "@/components/ui/SocialPlatformIcon";
 import styles from "./SiteFooter.module.css";
 
 const ease = [0.2, 0.74, 0.24, 1] as const;
@@ -73,9 +74,15 @@ export function SiteFooter() {
         {footerContent.socialLinks.length > 0 ? (
           <motion.div className={styles.socialRail} variants={revealVariants}>
             {footerContent.socialLinks.map((item) => (
-              <a key={item.href} className={styles.socialLink} href={item.href} target="_blank" rel="noopener noreferrer">
-                <span>{item.label}</span>
-                <ExternalLink aria-hidden="true" size={15} strokeWidth={2.1} />
+              <a
+                key={item.href}
+                className={styles.socialLink}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`زيارة ${item.label}`}
+              >
+                <SocialPlatformIcon platform={item.label} />
               </a>
             ))}
           </motion.div>

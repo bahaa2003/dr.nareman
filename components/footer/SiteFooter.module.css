@@ -106,44 +106,73 @@
 .socialRail {
   display: flex;
   justify-content: flex-end;
-  gap: 20px;
+  gap: 12px;
   flex-wrap: wrap;
   margin-top: 28px;
 }
 
 .socialLink {
   position: relative;
-  display: inline-flex;
-  min-height: 42px;
-  align-items: center;
-  gap: 8px;
-  color: rgba(18, 49, 52, 0.72);
-  font-weight: 800;
+  display: inline-grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(12, 106, 112, 0.16);
+  border-radius: 50%;
+  background: rgba(255, 253, 249, 0.72);
+  box-shadow: 0 10px 24px rgba(7, 59, 65, 0.08);
+  color: var(--color-teal-deep);
+  isolation: isolate;
+  text-decoration: none;
   transition:
-    color 220ms ease,
-    transform 220ms ease;
+    border-color 240ms ease,
+    background 240ms ease,
+    box-shadow 240ms ease,
+    color 240ms ease,
+    transform 240ms ease;
 }
 
-.socialLink::after {
-  content: "";
+.socialLink::before {
   position: absolute;
-  right: 0;
-  bottom: 5px;
-  width: 100%;
-  height: 1px;
-  background: #cc5394;
-  transform: scaleX(0);
-  transform-origin: right center;
-  transition: transform 220ms ease;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #0c6a70, #2f8f86 58%, #cc5394);
+  content: "";
+  opacity: 0;
+  transform: scale(0.72);
+  transition: opacity 240ms ease, transform 240ms ease;
+}
+
+.socialLink svg {
+  position: relative;
+  z-index: 1;
+  width: 21px;
+  height: 21px;
+  transition: transform 240ms ease;
 }
 
 .socialLink:hover {
-  color: #cc5394;
-  transform: translateX(-4px);
+  border-color: transparent;
+  background: transparent;
+  box-shadow: 0 14px 28px rgba(7, 59, 65, 0.16);
+  color: #fff;
+  transform: translateY(-4px);
 }
 
-.socialLink:hover::after {
-  transform: scaleX(1);
+.socialLink:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.socialLink:hover svg {
+  transform: scale(1.08);
+}
+
+.socialLink:focus-visible {
+  outline: 3px solid rgba(204, 83, 148, 0.72);
+  outline-offset: 4px;
 }
 
 @keyframes footerBrandGradient {
@@ -252,7 +281,8 @@
 
   .navLink,
   .socialLink,
-  .socialLink::after,
+  .socialLink::before,
+  .socialLink svg,
   .backTop {
     transition: none;
   }

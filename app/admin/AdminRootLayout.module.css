@@ -1,0 +1,5 @@
+.root {
+  min-height: 100dvh;
+  background: var(--color-warm-white);
+  color: var(--color-ink);
+}

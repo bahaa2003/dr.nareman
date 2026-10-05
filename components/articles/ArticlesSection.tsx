@@ -1,18 +1,17 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import type { ArticlePreview } from "@/data/mockArticles";
-import { articlesCta } from "@/data/mockArticles";
+import type { ArticlePreview } from "@/types/public-articles";
 import { AnimatedSectionTitle } from "@/components/ui/AnimatedSectionTitle";
 import { ArticleRail } from "./ArticleRail";
+import { PublicArticlesState } from "./PublicArticlesState";
 import styles from "./ArticlesSection.module.css";
 
 type ArticlesSectionProps = {
   articles: ArticlePreview[];
+  state?: "empty" | "error";
 };
 
-export function ArticlesSection({ articles }: ArticlesSectionProps) {
-  if (articles.length === 0) return null;
-
+export function ArticlesSection({ articles, state }: ArticlesSectionProps) {
   return (
     <section id="articles" className={styles.articles} aria-labelledby="articles-title">
       <span id="blog" className={styles.blogAnchor} aria-hidden="true" />
@@ -30,11 +29,11 @@ export function ArticlesSection({ articles }: ArticlesSectionProps) {
           </p>
         </div>
 
-        <ArticleRail articles={articles} />
+        {state ? <PublicArticlesState state={state} /> : <ArticleRail articles={articles} />}
 
         <div className={styles.footer}>
-          <Link className={styles.allArticles} href={articlesCta.href}>
-            <span>{articlesCta.label}</span>
+          <Link className={styles.allArticles} href="/articles">
+            <span>عرض جميع المقالات</span>
             <ArrowLeft aria-hidden="true" size={20} strokeWidth={2.2} />
           </Link>
         </div>

@@ -1,0 +1,253 @@
+.section {
+  scroll-margin-top: 112px;
+  padding: 0 0 clamp(62px, 7vw, 100px);
+  background: var(--color-warm-white);
+}
+
+.scene {
+  position: relative;
+  isolation: isolate;
+  width: min(90vw, 1320px);
+  min-height: clamp(360px, 31vw, 420px);
+  margin-inline: auto;
+  overflow: hidden;
+  border: 1px solid rgba(191, 232, 223, 0.2);
+  border-radius: clamp(32px, 3vw, 40px);
+  background: #073b41;
+  color: #fffaf6;
+}
+
+.scene::before {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse at 78% 16%, rgba(191, 232, 223, 0.12), transparent 26%),
+    radial-gradient(circle at 30% 84%, rgba(233, 168, 184, 0.1), transparent 15%);
+  content: "";
+  pointer-events: none;
+}
+
+.copy {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: min(56%, 650px);
+  gap: 14px;
+  margin-left: auto;
+  padding: clamp(52px, 5.6vw, 76px) clamp(38px, 5.8vw, 82px) 42px;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--color-mint);
+  font-size: clamp(0.92rem, 1.08vw, 1rem);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.eyebrow::after {
+  display: inline-block;
+  width: 30px;
+  height: 1px;
+  margin-inline-start: 12px;
+  vertical-align: middle;
+  background: rgba(191, 232, 223, 0.72);
+  content: "";
+}
+
+.copy h2 {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+  color: #fffaf6;
+  font-family: var(--font-display);
+  font-size: clamp(2.3rem, 4.2vw, 4.3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.copy h2 span {
+  color: var(--color-mint);
+}
+
+.lead {
+  max-width: 580px;
+  margin: 3px 0 0;
+  color: rgba(255, 250, 246, 0.78);
+  font-size: clamp(0.98rem, 1.15vw, 1.08rem);
+  font-weight: 500;
+  line-height: 1.85;
+}
+
+.details {
+  position: absolute;
+  bottom: clamp(36px, 4.2vw, 58px);
+  left: clamp(34px, 5.2vw, 74px);
+  z-index: 3;
+  display: grid;
+  gap: 16px;
+  align-items: start;
+}
+
+.bookingCta {
+  display: inline-flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid rgba(255, 250, 246, 0.62);
+  border-radius: 999px;
+  padding: 0 23px;
+  background: var(--color-mint);
+  color: var(--color-teal-deep);
+  font-weight: 800;
+  transition: background 200ms ease, color 200ms ease, transform 200ms ease;
+}
+
+.ctaArrow {
+  transition: transform 200ms ease;
+}
+
+.schedule {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  max-width: 410px;
+  margin: 0;
+  color: rgba(255, 250, 246, 0.74);
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.65;
+}
+
+.schedule svg {
+  color: var(--color-mint);
+}
+
+.scheduleDivider {
+  width: 18px;
+  height: 1px;
+  margin-inline: 3px;
+  background: rgba(233, 168, 184, 0.8);
+}
+
+.backgroundWord {
+  position: absolute;
+  bottom: -0.15em;
+  left: -0.06em;
+  z-index: -1;
+  color: rgba(191, 232, 223, 0.07);
+  font-family: var(--font-display);
+  font-size: clamp(10rem, 20vw, 19rem);
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: -0.08em;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.editorialLine {
+  position: absolute;
+  right: -4%;
+  bottom: 9%;
+  z-index: 1;
+  width: min(54%, 700px);
+  height: auto;
+  overflow: visible;
+  fill: none;
+  pointer-events: none;
+}
+
+.editorialLine path {
+  stroke: rgba(191, 232, 223, 0.46);
+  stroke-width: 1.4;
+}
+
+.editorialLine circle {
+  fill: var(--color-pink);
+}
+
+@media (hover: hover) {
+  .bookingCta:hover {
+    background: #fffaf6;
+    color: #052f34;
+    transform: translateY(-2px);
+  }
+
+  .bookingCta:hover .ctaArrow {
+    transform: translateX(-3px);
+  }
+}
+
+@media (max-width: 1023px) {
+  .scene {
+    width: min(92vw, 920px);
+  }
+
+  .copy {
+    width: min(65%, 590px);
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    scroll-margin-top: 76px;
+    padding-bottom: 64px;
+  }
+
+  .scene {
+    width: calc(100% - 24px);
+    min-height: clamp(400px, 120vw, 460px);
+    border-radius: 28px;
+  }
+
+  .copy {
+    width: 100%;
+    gap: 12px;
+    padding: 38px 24px 16px;
+  }
+
+  .copy h2 {
+    font-size: clamp(2rem, 9.2vw, 2.6rem);
+    line-height: 1.18;
+  }
+
+  .lead {
+    font-size: 0.96rem;
+    line-height: 1.76;
+  }
+
+  .details {
+    right: 24px;
+    bottom: 28px;
+    left: 24px;
+    gap: 14px;
+  }
+
+  .bookingCta {
+    width: 100%;
+  }
+
+  .schedule {
+    max-width: none;
+    font-size: 0.82rem;
+  }
+
+  .backgroundWord {
+    bottom: -0.02em;
+    left: -0.1em;
+    font-size: clamp(7rem, 31vw, 8.5rem);
+    opacity: 0.8;
+  }
+
+  .editorialLine {
+    right: -28%;
+    bottom: 16%;
+    width: 116%;
+    opacity: 0.68;
+  }
+}

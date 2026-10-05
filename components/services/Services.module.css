@@ -1,5 +1,6 @@
 .services {
   position: relative;
+  scroll-margin-top: 112px;
   overflow: hidden;
   padding: clamp(54px, 5.8vw, 86px) 0 clamp(76px, 8vw, 118px);
   background:
@@ -360,6 +361,7 @@
 
 @media (max-width: 767px) {
   .services {
+    scroll-margin-top: 96px;
     padding: 52px 0 78px;
   }
 

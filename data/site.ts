@@ -7,11 +7,11 @@ export const siteContent = {
   doctorName: "د. ناريمان الطريري",
   specialty: "استشارية علاج العقم وأطفال الأنابيب",
   nav: [
-    { label: "الرئيسية", href: "#home" },
-    { label: "عن الدكتورة", href: "#doctor" },
-    { label: "الخدمات", href: "#services" },
-    { label: "المدونة الطبية", href: "#blog" },
-    { label: "تواصل واحجزي", href: "#booking" }
+    { label: "الرئيسية", href: "/" },
+    { label: "عن الدكتورة", href: "/about" },
+    { label: "الخدمات", href: "/services" },
+    { label: "المدونة الطبية", href: "/articles" },
+    { label: "تواصل واحجزي", href: "/contact" }
   ],
   ctas: {
     booking: { label: "احجزي موعدك", href: "#booking" },

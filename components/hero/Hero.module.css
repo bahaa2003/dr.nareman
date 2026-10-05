@@ -142,11 +142,11 @@
 
 .doctorWrap {
   position: absolute;
-  left: clamp(18px, 4.2vw, 76px);
-  bottom: -20px;
+  left: clamp(44px, 7vw, 130px);
+  bottom: -10px;
   z-index: 7;
-  width: clamp(456px, 40vw, 670px);
-  aspect-ratio: 1;
+  width: clamp(340px, 25vw, 440px);
+  aspect-ratio: 0.5625;
   pointer-events: none;
 }
 
@@ -212,9 +212,9 @@
   }
 
   .doctorWrap {
-    left: -4px;
-    bottom: -18px;
-    width: clamp(410px, 44vw, 585px);
+    left: clamp(14px, 4vw, 58px);
+    bottom: -8px;
+    width: clamp(320px, 30vw, 400px);
   }
 }
 
@@ -238,9 +238,9 @@
   }
 
   .doctorWrap {
-    left: -24px;
-    bottom: -16px;
-    width: clamp(384px, 50vw, 530px);
+    left: -10px;
+    bottom: -8px;
+    width: clamp(300px, 36vw, 360px);
   }
 }
 

@@ -10,6 +10,81 @@ export const aboutDoctor = {
     suffix: "+",
     label: "سنوات خبرة"
   },
+  professionalExperience: [
+    {
+      startYear: "1999",
+      endYear: "2003",
+      title: "طبيب مقيم",
+      organization: "مستشفى قوى الأمن"
+    },
+    {
+      startYear: "2003",
+      endYear: "2005",
+      title: "طبيب نائب",
+      organization: "مستشفى قوى الأمن"
+    },
+    {
+      startYear: "2005",
+      endYear: "2008",
+      title: "طبيب مسجل ومشرفة وحدة الأمومة",
+      organization: "مستشفى قوى الأمن"
+    },
+    {
+      startYear: "2008",
+      endYear: "2010",
+      title: "زمالة تخصص دقيق REI",
+      organization: "مستشفى الملك فيصل التخصصي"
+    },
+    {
+      startYear: "2010",
+      endYear: "2021",
+      title: "استشارية",
+      organization: "مركز ذرية الطبي"
+    },
+    {
+      startYear: "2021",
+      endYear: "الآن",
+      title: "استشارية علاج العقم",
+      organization: "ذا كلنكس",
+      current: true
+    }
+  ],
+  qualifications: [
+    {
+      title: "بكالوريوس الطب والجراحة (أمراض النساء والولادة)",
+      institution: "جامعة الملك سعود"
+    },
+    {
+      title: "زمالة الغدد الصماء التناسلية والعقم",
+      institution: "مستشفى الملك فيصل التخصصي ومركز الأبحاث",
+      acronym: "REI"
+    },
+    {
+      title: "البورد السعودي والعربي",
+      institution: "في أمراض النساء والولادة"
+    }
+  ],
+  accreditations: [
+    {
+      title: "استشارية معتمدة",
+      detail: "البورد السعودي والعربي"
+    },
+    {
+      title: "عضو اللجنة السعودية للمساعدة على الإنجاب"
+    }
+  ],
+  recognitions: [
+    {
+      year: "2001",
+      title: "أفضل ورقة بحثية",
+      organization: "برنامج مستشفى قوى الأمن"
+    },
+    {
+      year: "2003",
+      title: "أفضل موظف",
+      organization: "برنامج مستشفى قوى الأمن"
+    }
+  ],
   credentials: [
     {
       title: "البورد السعودي",

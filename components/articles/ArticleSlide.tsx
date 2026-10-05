@@ -1,10 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
-import type { ArticlePreview } from "@/data/mockArticles";
+import type { ArticlePreview } from "@/types/public-articles";
 import styles from "./ArticlesSection.module.css";
 
 type ArticleSlideProps = {
@@ -39,14 +38,12 @@ export function ArticleSlide({ article, index, total, variant, reduceMotion }: A
   return (
     <article className={[styles.slide, isActive ? styles.activeSlide : styles.peekSlide].join(" ")}>
       <div className={styles.imageWrap}>
-        <Image
-          src={article.image}
-          alt={article.imageAlt}
-          fill
-          sizes={isActive ? "(max-width: 768px) 88vw, 900px" : "(max-width: 768px) 64px, 220px"}
-          className={styles.articleImage}
-          priority={index === 0}
-        />
+        {article.image ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img className={styles.articleImage} src={article.image} alt={article.imageAlt} />
+        ) : (
+          <div className={styles.missingImage} role="img" aria-label="لا توجد صورة غلاف للمقال" />
+        )}
       </div>
 
       <div className={styles.articleOverlay} aria-hidden="true" />
@@ -90,8 +87,8 @@ export function ArticleSlide({ article, index, total, variant, reduceMotion }: A
             initial={reduceMotion ? false : "hidden"}
             animate="visible"
           >
-            <Link className={styles.articleCta} href={article.href}>
-              <span>اقرئي المقال</span>
+            <Link className={styles.articleCta} href={`/articles/${article.slug}`}>
+              <span>قراءة المقال</span>
               <ArrowLeft aria-hidden="true" size={19} strokeWidth={2.2} />
             </Link>
           </motion.div>

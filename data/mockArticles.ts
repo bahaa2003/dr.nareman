@@ -7,7 +7,6 @@ export type ArticlePreview = {
   image: string;
   imageAlt: string;
   readingTime?: string;
-  href: string;
 };
 
 // TEMPORARY FRONTEND MOCK DATA.
@@ -23,8 +22,7 @@ export const mockArticles: ArticlePreview[] = [
     excerpt: "مقدمة مبسطة لفهم الفروق العامة بين الإجرائين وكيف يختار الفريق الطبي المسار الأنسب بعد التقييم.",
     image: "/images/articles/ivf-lab-suite.png",
     imageAlt: "مختبر إخصاب مجهري هادئ ومجهز",
-    readingTime: "٤ دقائق قراءة",
-    href: "#articles"
+    readingTime: "٤ دقائق قراءة"
   },
   {
     id: "mock-delayed-conception",
@@ -34,8 +32,7 @@ export const mockArticles: ArticlePreview[] = [
     excerpt: "إشارات عامة تساعد على ترتيب الخطوة الأولى وبدء تقييم طبي واضح دون وعود أو أحكام مسبقة.",
     image: "/images/articles/fertility-consultation.png",
     imageAlt: "جلسة استشارة طبية هادئة حول الخصوبة",
-    readingTime: "٣ دقائق قراءة",
-    href: "#articles"
+    readingTime: "٣ دقائق قراءة"
   },
   {
     id: "mock-ovulation-followup",
@@ -45,12 +42,11 @@ export const mockArticles: ArticlePreview[] = [
     excerpt: "نظرة مختصرة على معنى المتابعة، ولماذا قد تساعد الفحوصات المنتظمة في بناء خطة علاج أوضح.",
     image: "/images/articles/ovulation-planning.png",
     imageAlt: "تقويم متابعة التبويض مع أدوات تخطيط صحية",
-    readingTime: "٣ دقائق قراءة",
-    href: "#articles"
+    readingTime: "٣ دقائق قراءة"
   }
 ];
 
 export const articlesCta = {
   label: "عرض جميع المقالات",
-  href: "#articles"
+  href: "/articles"
 };

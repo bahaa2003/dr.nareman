@@ -14,19 +14,17 @@ export const bookingFinale = {
     hours: "من ١:٠٠ ظهرًا إلى ٤:٠٠ عصرًا"
   },
   links: {
-    // TODO: Replace with the verified WhatsApp booking URL when it is provided.
     whatsapp: {
       label: "احجزي موعدك الآن",
-      href: "#booking",
-      external: false,
-      configured: false
+      href: "https://wa.me/966500511212?text=مرحباً،%20أرغب%20في%20حجز%20موعد%20مع%20د.%20ناريمان%20الطريري",
+      external: true,
+      configured: true
     },
-    // TODO: Replace with the verified Google Maps URL when it is provided.
     maps: {
       label: "عرض الموقع على الخريطة",
-      href: "#booking-location",
-      external: false,
-      configured: false
+      href: "https://maps.app.goo.gl/JLfaxcTQZX6dTr8r6?g_st=com.google.maps.preview.copy",
+      external: true,
+      configured: true
     }
   } satisfies Record<string, BookingLink>
 };

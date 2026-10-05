@@ -5,6 +5,7 @@ import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { ArrowLeft, CalendarDays, Clock3, ExternalLink, MapPin, MessageCircle } from "lucide-react";
 import { bookingFinale, type BookingLink } from "@/data/booking";
 import { AnimatedSectionTitle } from "@/components/ui/AnimatedSectionTitle";
+import { trackMarketingEvent } from "@/lib/marketing-events";
 import styles from "./BookingFinale.module.css";
 
 const ease = [0.2, 0.74, 0.24, 1] as const;
@@ -82,6 +83,7 @@ export function BookingFinale() {
                   className={styles.bookingCta}
                   href={bookingFinale.links.whatsapp.href}
                   aria-label={bookingFinale.links.whatsapp.label}
+                  onClick={() => trackMarketingEvent("booking_cta_clicked", { placement: "homepage_finale" })}
                   {...linkProps(bookingFinale.links.whatsapp)}
                 >
                   <MessageCircle aria-hidden="true" size={23} strokeWidth={2.2} />

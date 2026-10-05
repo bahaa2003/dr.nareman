@@ -1,0 +1,51 @@
+.state {
+  display: grid;
+  min-height: 100dvh;
+  place-items: center;
+  padding: 24px;
+}
+
+.panel {
+  width: min(100%, 440px);
+  border: 1px solid rgba(18, 49, 52, 0.14);
+  border-radius: 16px;
+  background: #fffdf9;
+  padding: 32px;
+  box-shadow: 0 18px 48px rgba(7, 59, 65, 0.08);
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--color-teal);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.panel h1 {
+  margin: 0;
+  color: var(--color-teal-deep);
+  font-size: 1.35rem;
+}
+
+.panel p:not(.eyebrow) {
+  margin: 12px 0 0;
+  color: var(--color-muted);
+  line-height: 1.8;
+}
+
+.retryButton {
+  margin-top: 22px;
+  border: 0;
+  border-radius: 9px;
+  background: var(--color-teal-deep);
+  color: var(--color-warm-white);
+  cursor: pointer;
+  padding: 10px 16px;
+  font: inherit;
+  font-weight: 700;
+}
+
+.retryButton:focus-visible {
+  outline: 3px solid rgba(199, 121, 131, 0.55);
+  outline-offset: 3px;
+}

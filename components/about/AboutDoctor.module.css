@@ -1,5 +1,6 @@
 .about {
   position: relative;
+  scroll-margin-top: 112px;
   overflow: hidden;
   padding: clamp(78px, 7vw, 112px) 0 clamp(86px, 8vw, 128px);
   background:
@@ -184,11 +185,11 @@
 
 .doctorVisual {
   position: absolute;
-  left: clamp(190px, 28vw, 460px);
-  bottom: -18px;
+  left: clamp(170px, 27vw, 430px);
+  bottom: -22px;
   z-index: 5;
-  width: clamp(430px, 44vw, 660px);
-  height: clamp(590px, 66vw, 790px);
+  width: clamp(480px, 48vw, 720px);
+  height: clamp(680px, 76vw, 900px);
   margin: 0;
   pointer-events: none;
 }
@@ -218,8 +219,8 @@
   inset: 0;
   z-index: 2;
   overflow: visible;
-  -webkit-mask-image: radial-gradient(ellipse at 50% 48%, #000 0%, #000 68%, rgba(0, 0, 0, 0.82) 78%, transparent 94%);
-  mask-image: radial-gradient(ellipse at 50% 48%, #000 0%, #000 68%, rgba(0, 0, 0, 0.82) 78%, transparent 94%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 90%, rgba(0, 0, 0, 0.88) 96%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 90%, rgba(0, 0, 0, 0.88) 96%, transparent 100%);
 }
 
 .poseLayer {
@@ -321,9 +322,9 @@
   }
 
   .doctorVisual {
-    left: clamp(170px, 25vw, 300px);
-    width: clamp(420px, 50vw, 600px);
-    height: clamp(570px, 70vw, 720px);
+    left: clamp(150px, 23vw, 280px);
+    width: clamp(460px, 54vw, 650px);
+    height: clamp(640px, 78vw, 810px);
   }
 
   .experience {
@@ -399,8 +400,8 @@
   .doctorVisual {
     order: 3;
     justify-self: center;
-    width: min(82vw, 560px);
-    height: clamp(560px, 104vw, 720px);
+    width: min(88vw, 600px);
+    height: clamp(620px, 118vw, 790px);
   }
 
   .credentials {
@@ -432,6 +433,12 @@
     left: 50%;
     width: min(84vw, 560px);
     transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 767px) {
+  .about {
+    scroll-margin-top: 96px;
   }
 }
 
@@ -481,8 +488,8 @@
   }
 
   .doctorVisual {
-    width: min(92vw, 390px);
-    height: clamp(460px, 128vw, 560px);
+    width: min(94vw, 430px);
+    height: clamp(560px, 142vw, 660px);
     margin-top: -4px;
   }
 
@@ -516,8 +523,8 @@
   }
 
   .doctorVisual {
-    width: min(92vw, 330px);
-    height: 430px;
+    width: min(94vw, 360px);
+    height: 520px;
   }
 
   .experienceNumber {

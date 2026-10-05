@@ -1,0 +1,222 @@
+.shell {
+  padding: clamp(20px, 2.4vw, 34px) 0 clamp(54px, 6vw, 84px);
+  background: var(--color-warm-white);
+}
+
+.panel {
+  position: relative;
+  isolation: isolate;
+  width: min(90vw, 1320px);
+  height: clamp(370px, 31vw, 420px);
+  margin-inline: auto;
+  overflow: hidden;
+  border: 1px solid rgba(191, 232, 223, 0.18);
+  border-radius: clamp(32px, 3vw, 42px);
+  background:
+    radial-gradient(circle at 88% 18%, rgba(191, 232, 223, 0.13), transparent 24%),
+    radial-gradient(circle at 24% 84%, rgba(233, 168, 184, 0.1), transparent 19%),
+    var(--color-teal-deep);
+  color: var(--color-warm-white);
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: min(67%, 760px);
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  gap: 13px;
+  padding: clamp(38px, 4.8vw, 66px) clamp(38px, 6vw, 88px);
+}
+
+.eyebrow {
+  width: fit-content;
+  margin: 0;
+  color: var(--color-mint);
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.eyebrow::after {
+  display: inline-block;
+  width: 30px;
+  height: 1px;
+  margin-inline-start: 12px;
+  vertical-align: middle;
+  background: rgba(191, 232, 223, 0.65);
+  content: "";
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4.8vw, 4.7rem);
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.title span:last-child {
+  color: var(--color-mint);
+}
+
+.lead {
+  max-width: 550px;
+  margin: 1px 0 0;
+  color: rgba(251, 247, 241, 0.8);
+  font-size: clamp(0.96rem, 1.18vw, 1.08rem);
+  font-weight: 500;
+  line-height: 1.85;
+}
+
+.bookingCta {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 52px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 5px;
+  padding: 0 21px;
+  border-radius: 999px;
+  background: var(--color-mint);
+  color: var(--color-teal-deep);
+  font-size: 0.96rem;
+  font-weight: 800;
+  box-shadow: inset 0 -2px 0 rgba(233, 168, 184, 0.74);
+  transition: transform 220ms ease, background 220ms ease;
+}
+
+.bookingCta:hover {
+  background: #e4f6ef;
+  transform: translateY(-2px);
+}
+
+.backgroundWord {
+  position: absolute;
+  bottom: -0.22em;
+  left: -0.05em;
+  z-index: -1;
+  color: rgba(191, 232, 223, 0.065);
+  font-family: var(--font-display);
+  font-size: clamp(10rem, 20vw, 19rem);
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: -0.09em;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.pinkDot {
+  position: absolute;
+  top: clamp(38px, 6vw, 74px);
+  left: clamp(30%, 36vw, 44%);
+  z-index: 1;
+  width: 9px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--color-pink);
+}
+
+.mintLine {
+  position: absolute;
+  top: clamp(38px, 5vw, 68px);
+  left: clamp(30px, 5vw, 74px);
+  width: clamp(64px, 9vw, 128px);
+  height: 1px;
+  background: rgba(191, 232, 223, 0.58);
+}
+
+.editorialCurve {
+  position: absolute;
+  right: -4%;
+  bottom: 5%;
+  width: min(56%, 720px);
+  height: auto;
+  overflow: visible;
+  fill: none;
+  pointer-events: none;
+}
+
+.editorialCurve path {
+  stroke: rgba(191, 232, 223, 0.34);
+  stroke-width: 1.4;
+}
+
+@media (max-width: 1023px) {
+  .panel {
+    width: min(92vw, 920px);
+  }
+
+  .content {
+    width: min(74%, 660px);
+  }
+}
+
+@media (max-width: 767px) {
+  .shell {
+    padding: 16px 0 50px;
+  }
+
+  .panel {
+    width: calc(100% - 24px);
+    height: auto;
+    min-height: clamp(430px, 122vw, 470px);
+    border-radius: 28px;
+  }
+
+  .content {
+    width: 100%;
+    min-height: clamp(430px, 122vw, 470px);
+    justify-content: center;
+    padding: 58px 28px 48px;
+  }
+
+  .title {
+    font-size: clamp(2.04rem, 9.6vw, 2.6rem);
+    line-height: 1.23;
+  }
+
+  .lead {
+    max-width: 345px;
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+
+  .bookingCta {
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .pinkDot {
+    top: auto;
+    bottom: 31px;
+    left: 28px;
+    width: 8px;
+  }
+
+  .mintLine {
+    top: 29px;
+    left: 25px;
+    width: 70px;
+  }
+
+  .backgroundWord {
+    bottom: -0.11em;
+    left: -0.13em;
+    font-size: clamp(7rem, 32vw, 9rem);
+  }
+
+  .editorialCurve {
+    right: -25%;
+    bottom: 8%;
+    width: 115%;
+  }
+}

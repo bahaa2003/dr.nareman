@@ -1,0 +1,208 @@
+.story {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(80px, 8.5vw, 132px) 0 clamp(82px, 7.5vw, 116px);
+  background: var(--color-warm-white);
+  color: var(--color-ink);
+}
+
+.inner {
+  position: relative;
+  width: min(90vw, 1240px);
+  margin-inline: auto;
+}
+
+.manifesto {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(290px, 0.6fr);
+  gap: clamp(62px, 11vw, 176px);
+  align-items: center;
+}
+
+.narrative {
+  display: grid;
+  gap: 18px;
+  max-width: 670px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  color: var(--color-teal);
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.eyebrow::after {
+  width: 34px;
+  height: 1px;
+  background: rgba(12, 106, 112, 0.48);
+  content: "";
+}
+
+.title {
+  margin: 0;
+  padding-block: 0.08em;
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.25vw, 4.45rem);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: 0;
+  overflow: visible;
+  text-wrap: balance;
+}
+
+.copy {
+  max-width: 550px;
+  margin: 4px 0 0;
+  color: var(--color-muted);
+  font-size: clamp(1.05rem, 1.35vw, 1.24rem);
+  font-weight: 500;
+  line-height: 1.95;
+}
+
+.experienceWrap {
+  position: relative;
+  z-index: 2;
+  justify-self: start;
+}
+
+.experience {
+  display: grid;
+  gap: 10px;
+}
+
+.experienceValue {
+  direction: ltr;
+  color: var(--color-teal-deep);
+  font-family: var(--font-display);
+  font-size: clamp(8rem, 16vw, 15.5rem);
+  font-weight: 700;
+  line-height: 0.84;
+  letter-spacing: -0.1em;
+  font-variant-numeric: tabular-nums;
+}
+
+.experienceLabel {
+  color: var(--color-teal);
+  font-family: var(--font-display);
+  font-size: clamp(1.04rem, 1.5vw, 1.3rem);
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.backgroundWord {
+  position: absolute;
+  top: 10%;
+  left: -0.08em;
+  z-index: 0;
+  color: rgba(7, 59, 65, 0.035);
+  font-family: var(--font-display);
+  font-size: clamp(11rem, 25vw, 24rem);
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.09em;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.manifestoCurve {
+  position: absolute;
+  bottom: -2%;
+  left: -3%;
+  z-index: 1;
+  width: min(77%, 980px);
+  height: auto;
+  overflow: visible;
+  fill: none;
+  pointer-events: none;
+}
+
+.manifestoCurve path {
+  stroke: rgba(12, 106, 112, 0.36);
+  stroke-width: 1.35;
+}
+
+.manifestoCurve circle {
+  fill: var(--color-pink);
+}
+
+@media (max-width: 767px) {
+  .story {
+    padding: 68px 0 74px;
+  }
+
+  .inner {
+    width: min(88vw, 520px);
+  }
+
+  .manifesto {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  .narrative {
+    gap: 14px;
+  }
+
+  .eyebrow {
+    font-size: 0.92rem;
+  }
+
+  .eyebrow::after {
+    width: 28px;
+  }
+
+  .title {
+    font-size: clamp(1.88rem, 8.55vw, 2.45rem);
+    line-height: 1.2;
+  }
+
+  .copy {
+    font-size: 1rem;
+    line-height: 1.92;
+  }
+
+  .experienceWrap {
+    justify-self: start;
+  }
+
+  .experienceValue {
+    font-size: clamp(7.2rem, 33vw, 10rem);
+    line-height: 0.9;
+  }
+
+  .experienceLabel {
+    font-size: 1.06rem;
+  }
+
+  .backgroundWord {
+    top: 45%;
+    left: 50%;
+    font-size: clamp(8rem, 39vw, 11rem);
+    transform: translateX(-50%);
+  }
+
+  .manifestoCurve {
+    bottom: 10%;
+    left: -28%;
+    width: 122%;
+  }
+}
+
+@media (max-width: 374px) {
+  .inner {
+    width: min(86vw, 360px);
+  }
+
+  .title {
+    font-size: 1.78rem;
+  }
+}

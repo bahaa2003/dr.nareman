@@ -1,0 +1,62 @@
+.state {
+  display: grid;
+  width: min(100%, 640px);
+  gap: 12px;
+  border: 1px solid rgba(18, 49, 52, 0.14);
+  border-radius: 16px;
+  background: #fffdf9;
+  padding: clamp(24px, 5vw, 36px);
+}
+
+.state h1,
+.state p {
+  margin: 0;
+}
+
+.state h1 {
+  color: var(--color-teal-deep);
+  font-size: clamp(1.35rem, 3vw, 1.7rem);
+}
+
+.state p {
+  color: var(--color-muted);
+  line-height: 1.8;
+}
+
+.stateActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.stateActions button,
+.stateActions a {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  padding: 9px 13px;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.stateActions button {
+  border: 1px solid var(--color-teal-deep);
+  background: var(--color-teal-deep);
+  color: var(--color-warm-white);
+  cursor: pointer;
+}
+
+.stateActions a {
+  border: 1px solid rgba(18, 49, 52, 0.22);
+  color: var(--color-teal-deep);
+}
+
+.stateActions button:focus-visible,
+.stateActions a:focus-visible {
+  outline: 3px solid rgba(199, 121, 131, 0.62);
+  outline-offset: 2px;
+}

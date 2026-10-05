@@ -1,0 +1,66 @@
+.publicEntry {
+  position: relative;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 44%, rgba(191, 232, 223, .22), transparent 24%),
+    linear-gradient(135deg, #073b41, #07565b);
+  opacity: 0;
+  pointer-events: none;
+  animation: overlayExit 560ms cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.ring {
+  position: absolute;
+  width: clamp(164px, 25vw, 250px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(191, 232, 223, .45);
+  border-radius: 46% 54% 51% 49%;
+  box-shadow: 0 0 0 17px rgba(233, 168, 184, .08);
+  animation: ringReveal 460ms cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.logo {
+  position: relative;
+  width: min(225px, 54vw);
+  height: auto;
+  filter: brightness(0) invert(1);
+  animation: logoReveal 410ms cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.content {
+  animation: contentReveal 480ms 85ms cubic-bezier(.22, 1, .36, 1) both;
+}
+
+@keyframes overlayExit {
+  0% { opacity: 1; }
+  62% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+@keyframes logoReveal {
+  from { opacity: 0; transform: scale(.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes ringReveal {
+  from { opacity: 0; transform: scale(.78) rotate(-12deg); }
+  to { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+@keyframes contentReveal {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay { display: none; }
+  .content, .ring, .logo { animation: none; }
+}

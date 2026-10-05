@@ -8,6 +8,8 @@ type ActionLinkProps = {
   variant?: "primary" | "secondary" | "header";
   className?: string;
   onClick?: () => void;
+  target?: "_blank";
+  rel?: string;
 };
 
 export function ActionLink({
@@ -16,12 +18,14 @@ export function ActionLink({
   icon,
   variant = "primary",
   className,
-  onClick
+  onClick,
+  target,
+  rel
 }: ActionLinkProps) {
   const classes = [styles.action, styles[variant], className].filter(Boolean).join(" ");
 
   return (
-    <a className={classes} href={href} onClick={onClick}>
+    <a className={classes} href={href} onClick={onClick} target={target} rel={rel}>
       {icon ? <span className={styles.icon}>{icon}</span> : null}
       <span>{children}</span>
     </a>

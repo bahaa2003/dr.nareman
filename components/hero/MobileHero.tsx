@@ -51,7 +51,7 @@ export function MobileHero() {
             className={styles.doctorImage}
             src={heroAssets.doctor}
             alt="د. ناريمان الطريري، استشارية علاج العقم وأطفال الأنابيب"
-            width={1024}
+            width={576}
             height={1024}
             sizes="(max-width: 430px) 275px, (max-width: 767px) 300px, 0px"
             priority

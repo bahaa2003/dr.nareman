@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion, type PanInfo, type Variants } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import type { ArticlePreview } from "@/data/mockArticles";
+import type { ArticlePreview } from "@/types/public-articles";
 import { ArticleSlide } from "./ArticleSlide";
 import styles from "./ArticlesSection.module.css";
 
@@ -18,7 +18,7 @@ type ArticleRailProps = {
 const slideVariants: Variants = {
   enter: (direction: number) => ({
     opacity: 0,
-    x: direction > 0 ? "-24%" : "24%",
+    x: direction > 0 ? "-24%" : "0%",
     scale: 0.96
   }),
   center: {

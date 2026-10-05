@@ -4,6 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowUpLeft, CalendarDays, Menu, X } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { bookingFinale } from "@/data/booking";
 import { siteContent } from "@/data/site";
 import { ActionLink } from "@/components/ui/ActionLink";
 import styles from "./Header.module.css";
@@ -11,9 +14,13 @@ import styles from "./Header.module.css";
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeHref, setActiveHref] = useState(siteContent.nav[0]?.href ?? "#home");
+  const pathname = usePathname();
   const reduceMotion = useReducedMotion();
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const activeHref = siteContent.nav.find((item) => item.href === pathname)?.href ?? siteContent.nav[0]?.href;
+  const bookingLink = bookingFinale.links.whatsapp;
+  const bookingLinkProps = bookingLink.external ? { target: "_blank" as const, rel: "noopener noreferrer" } : {};
 
   useEffect(() => {
     const updateScrolledState = () => {
@@ -27,45 +34,11 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    const sectionIds = siteContent.nav
-      .map((item) => item.href)
-      .filter((href) => href.startsWith("#"))
-      .map((href) => href.slice(1));
-
-    const sections = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter((section): section is HTMLElement => Boolean(section));
-
-    if (!sections.length) {
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleEntry = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-        if (visibleEntry?.target.id) {
-          setActiveHref(`#${visibleEntry.target.id}`);
-        }
-      },
-      {
-        rootMargin: "-28% 0px -58% 0px",
-        threshold: [0.12, 0.24, 0.42]
-      }
-    );
-
-    sections.forEach((section) => observer.observe(section));
-
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
     if (!open) {
       return;
     }
 
+    const menuButton = menuButtonRef.current;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     closeButtonRef.current?.focus();
@@ -73,6 +46,34 @@ export function Header() {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setOpen(false);
+        return;
+      }
+
+      if (event.key !== "Tab") {
+        return;
+      }
+
+      const menu = document.getElementById("mobile-menu");
+      if (!menu) {
+        return;
+      }
+
+      const focusableElements = Array.from(
+        menu.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')
+      );
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (!firstElement || !lastElement) {
+        return;
+      }
+
+      if (event.shiftKey && document.activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+      } else if (!event.shiftKey && document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
       }
     };
 
@@ -81,6 +82,7 @@ export function Header() {
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", onKeyDown);
+      menuButton?.focus();
     };
   }, [open]);
 
@@ -89,16 +91,16 @@ export function Header() {
   return (
     <header className={`${styles.header} ${scrolled ? styles.headerScrolled : ""}`}>
       <div className={styles.inner}>
-        <a className={styles.brand} href="#home" aria-label={`${siteContent.doctorName} الصفحة الرئيسية`}>
+        <Link className={styles.brand} href="/" aria-label={`${siteContent.doctorName} الصفحة الرئيسية`}>
           <Image
             className={styles.logoImage}
-            src="/images/nariman-logo-main.png"
+            src="/images/nariman-logo-primary.png"
             alt=""
-            width={1187}
-            height={435}
+            width={1328}
+            height={514}
             priority
           />
-        </a>
+        </Link>
 
         <nav className={styles.desktopNav} aria-label="التنقل الرئيسي">
           {siteContent.nav.map((item) => (
@@ -114,14 +116,16 @@ export function Header() {
         </nav>
 
         <a
-          href={siteContent.ctas.booking.href}
+          href={bookingLink.href}
           className={styles.headerCta}
+          {...bookingLinkProps}
         >
           <span>احجزي موعدك</span>
           <ArrowUpLeft aria-hidden="true" size={17} strokeWidth={2.3} />
         </a>
 
         <button
+          ref={menuButtonRef}
           className={`${styles.menuButton} ${open ? styles.menuButtonOpen : ""}`}
           type="button"
           aria-label={open ? "إغلاق القائمة" : "فتح القائمة"}
@@ -182,11 +186,12 @@ export function Header() {
                 ))}
               </nav>
               <ActionLink
-                href={siteContent.ctas.booking.href}
+                href={bookingLink.href}
                 variant="primary"
                 className={styles.mobileBookingCta}
                 icon={<CalendarDays aria-hidden="true" size={18} />}
                 onClick={closeMenu}
+                {...bookingLinkProps}
               >
                 {siteContent.ctas.booking.label}
               </ActionLink>

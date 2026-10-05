@@ -1,0 +1,13 @@
+.state {
+  width: min(90vw, 720px);
+  margin: clamp(38px, 6vw, 72px) auto;
+  padding: 20px 24px;
+  border: 1px solid rgba(12, 106, 112, 0.16);
+  border-radius: 18px;
+  background: rgba(255, 250, 246, 0.72);
+  color: var(--color-muted);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.8;
+  text-align: center;
+}

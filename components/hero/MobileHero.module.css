@@ -151,10 +151,10 @@
 .doctorFrame {
   position: absolute;
   top: 148px;
-  left: clamp(12px, 5.8vw, 28px);
+  left: clamp(24px, 12vw, 54px);
   bottom: auto;
   z-index: 6;
-  width: clamp(270px, 82vw, 324px);
+  width: clamp(176px, 52vw, 208px);
   pointer-events: none;
 }
 
@@ -284,9 +284,9 @@
 
   .doctorFrame {
     top: 142px;
-    left: 6px;
+    left: 32px;
     bottom: auto;
-    width: clamp(248px, 80vw, 296px);
+    width: clamp(168px, 52vw, 198px);
   }
 }
 
@@ -324,8 +324,8 @@
 
   .doctorFrame {
     top: 136px;
-    left: 2px;
-    width: 260px;
+    left: 24px;
+    width: 178px;
   }
 }
 
@@ -341,7 +341,7 @@
   .doctorFrame {
     top: 130px;
     bottom: auto;
-    width: clamp(246px, 76vw, 300px);
+    width: clamp(166px, 50vw, 194px);
   }
 
   .bottomCurve {

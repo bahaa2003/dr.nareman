@@ -1,0 +1,405 @@
+.section {
+  padding: 0 0 clamp(86px, 10vw, 140px);
+  background: var(--color-warm-white);
+}
+
+.inner {
+  width: min(90vw, 1240px);
+  margin-inline: auto;
+}
+
+.canvas {
+  display: grid;
+  grid-template-areas:
+    "schedule schedule location"
+    "schedule schedule booking";
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.86fr) minmax(280px, 0.8fr);
+  gap: clamp(18px, 2.6vw, 34px);
+  align-items: stretch;
+}
+
+.schedule,
+.location,
+.booking {
+  position: relative;
+  overflow: hidden;
+}
+
+.schedule {
+  display: flex;
+  min-height: clamp(430px, 37vw, 520px);
+  grid-area: schedule;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(34px, 5vw, 70px);
+  border-top: 1px solid rgba(12, 106, 112, 0.22);
+  border-bottom: 1px solid rgba(12, 106, 112, 0.16);
+  background: linear-gradient(125deg, rgba(191, 232, 223, 0.45), rgba(251, 247, 241, 0.25) 62%);
+}
+
+.sectionLabel {
+  margin: 0;
+  color: var(--color-teal);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.sectionLabel::after {
+  display: inline-block;
+  width: 27px;
+  height: 1px;
+  margin-inline-start: 11px;
+  vertical-align: middle;
+  background: rgba(12, 106, 112, 0.45);
+  content: "";
+}
+
+.scheduleDays {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 18px;
+  max-width: 660px;
+  margin: 18px 0 0;
+  color: var(--color-teal-deep);
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4.7vw, 4.85rem);
+  font-weight: 700;
+  line-height: 1.22;
+  letter-spacing: -0.045em;
+}
+
+.scheduleDays span:not(:last-child)::after {
+  margin-inline-start: 18px;
+  color: var(--color-pink);
+  content: "·";
+}
+
+.hours {
+  margin: 20px 0 0;
+  color: var(--color-muted);
+  font-size: clamp(1rem, 1.34vw, 1.16rem);
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+.location {
+  min-height: clamp(190px, 17vw, 240px);
+  grid-area: location;
+  padding: clamp(28px, 3vw, 38px);
+  border-bottom: 1px solid rgba(12, 106, 112, 0.18);
+  background: rgba(248, 244, 238, 0.65);
+}
+
+.locationVisual {
+  position: absolute;
+  top: 18px;
+  left: -19px;
+  width: 54%;
+  opacity: 0.56;
+}
+
+.locationVisual svg {
+  width: 100%;
+  height: auto;
+  fill: none;
+}
+
+.locationVisual path {
+  stroke: rgba(12, 106, 112, 0.34);
+  stroke-width: 1.4;
+}
+
+.locationVisual circle {
+  fill: var(--color-pink);
+}
+
+.locationLine {
+  display: block;
+  width: 58px;
+  height: 2px;
+  margin-bottom: 22px;
+  transform-origin: right center;
+  background: var(--color-pink);
+}
+
+.mapPin {
+  position: absolute;
+  top: 29px;
+  left: 29px;
+  color: var(--color-teal);
+}
+
+.locationTitle {
+  position: relative;
+  max-width: 290px;
+  margin: 11px 0 0;
+  color: var(--color-teal-deep);
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2vw, 1.9rem);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.mapLink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 19px;
+  color: var(--color-teal);
+  font-size: 0.92rem;
+  font-weight: 800;
+  transition: transform 220ms ease;
+}
+
+.mapLink::after {
+  position: absolute;
+  right: 0;
+  bottom: -5px;
+  width: calc(100% - 25px);
+  height: 1px;
+  background: currentColor;
+  content: "";
+  transform: scaleX(0.55);
+  transform-origin: right center;
+  transition: transform 220ms ease;
+}
+
+.mapLink:hover {
+  transform: translateX(-3px);
+}
+
+.mapLink:hover::after {
+  transform: scaleX(1);
+}
+
+.booking {
+  display: flex;
+  min-height: clamp(220px, 20vw, 280px);
+  grid-area: booking;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(28px, 3vw, 40px);
+  background: var(--color-teal-deep);
+  color: var(--color-warm-white);
+}
+
+.booking .sectionLabel {
+  color: var(--color-mint);
+}
+
+.booking .sectionLabel::after {
+  background: rgba(191, 232, 223, 0.55);
+}
+
+.bookingMark {
+  position: absolute;
+  top: 17px;
+  left: 20px;
+  color: rgba(191, 232, 223, 0.18);
+  direction: ltr;
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.bookingTitle {
+  margin: 10px 0 0;
+  color: var(--color-warm-white);
+  font-family: var(--font-display);
+  font-size: clamp(1.65rem, 2.3vw, 2.3rem);
+  font-weight: 700;
+  line-height: 1.32;
+}
+
+.bookingCaption {
+  margin: 8px 0 0;
+  color: rgba(251, 247, 241, 0.68);
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.bookingCta {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 47px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 20px;
+  padding: 0 17px;
+  border-radius: 999px;
+  background: var(--color-mint);
+  color: var(--color-teal-deep);
+  font-size: 0.9rem;
+  font-weight: 800;
+  transition: transform 220ms ease, background 220ms ease;
+}
+
+.bookingCta:hover {
+  background: #e4f6ef;
+  transform: translateY(-2px);
+}
+
+.socialRail {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  margin-top: clamp(70px, 8vw, 110px);
+  padding-top: 22px;
+  border-top: 1px solid rgba(12, 106, 112, 0.18);
+}
+
+.socialTitle {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.socialLinks {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 3vw, 42px);
+  flex-wrap: wrap;
+}
+
+.socialLink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--color-teal-deep);
+  font-size: 0.96rem;
+  font-weight: 800;
+  transition: transform 220ms ease;
+}
+
+.socialLink::after {
+  position: absolute;
+  right: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 1px;
+  background: var(--color-pink);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 220ms ease;
+}
+
+.socialLink:hover {
+  transform: translateX(-4px);
+}
+
+.socialLink:hover::after {
+  transform: scaleX(1);
+}
+
+@media (max-width: 1023px) {
+  .inner {
+    width: min(92vw, 920px);
+  }
+
+  .canvas {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+    grid-template-areas:
+      "schedule schedule"
+      "location booking";
+  }
+
+  .schedule {
+    min-height: 350px;
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-bottom: 74px;
+  }
+
+  .inner {
+    width: calc(100% - 24px);
+  }
+
+  .canvas {
+    display: grid;
+    grid-template-areas:
+      "schedule"
+      "location"
+      "booking";
+    grid-template-columns: minmax(0, 1fr);
+    gap: 48px;
+  }
+
+  .schedule {
+    min-height: 0;
+    padding: 31px 4px 36px;
+    background: linear-gradient(125deg, rgba(191, 232, 223, 0.4), rgba(251, 247, 241, 0.12) 70%);
+  }
+
+  .scheduleDays {
+    display: grid;
+    gap: 4px;
+    margin-top: 16px;
+    font-size: clamp(2rem, 10.4vw, 2.7rem);
+    line-height: 1.34;
+  }
+
+  .scheduleDays span:not(:last-child)::after {
+    display: none;
+  }
+
+  .hours {
+    margin-top: 16px;
+    font-size: 1rem;
+  }
+
+  .location {
+    min-height: 260px;
+    padding: 31px 26px;
+    border-top: 1px solid rgba(12, 106, 112, 0.16);
+  }
+
+  .locationVisual {
+    top: 15px;
+    left: -10px;
+    width: 58%;
+  }
+
+  .mapPin {
+    top: 30px;
+    left: 27px;
+  }
+
+  .locationTitle {
+    max-width: 245px;
+    font-size: clamp(1.4rem, 6.5vw, 1.85rem);
+  }
+
+  .booking {
+    min-height: 0;
+    padding: 32px 26px;
+  }
+
+  .bookingCta {
+    width: 100%;
+    margin-top: 22px;
+  }
+
+  .socialRail {
+    display: grid;
+    gap: 21px;
+    margin-top: 60px;
+  }
+
+  .socialLinks {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 22px;
+  }
+}
