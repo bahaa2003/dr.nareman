@@ -1,0 +1,33 @@
+.manager { display: grid; width: min(100%, 1120px); gap: 18px; margin-top: 22px; border: 1px solid rgba(18, 49, 52, 0.14); border-radius: 16px; background: #fffdf9; padding: clamp(20px, 4vw, 30px); }
+.header p, .header h2, .hint, .successMessage, .errorMessage, .emptyState { margin: 0; }
+.eyebrow { margin-bottom: 4px !important; color: var(--color-teal); font-size: .82rem; font-weight: 700; }
+.header h2 { color: var(--color-teal-deep); font-size: 1.2rem; }
+.header p:last-child, .hint { margin-top: 8px; color: var(--color-muted); font-size: .88rem; line-height: 1.7; }
+.field { display: grid; gap: 8px; max-width: 620px; }
+.field label, .videoDetails strong { color: var(--color-teal-deep); font-size: .93rem; font-weight: 700; }
+.field input[type="file"] { width: 100%; color: var(--color-ink); font: inherit; }
+.field input[type="file"]::file-selector-button { margin-inline-end: 10px; border: 1px solid rgba(18,49,52,.22); border-radius: 8px; background: #fff; color: var(--color-teal-deep); cursor: pointer; padding: 8px 11px; font: inherit; font-weight: 700; }
+.uploadStatus { display: grid; gap: 9px; max-width: 620px; padding: 13px; border: 1px solid rgba(12, 106, 112, .2); border-radius: 10px; background: rgba(225,245,236,.42); }
+.uploadStatusHeader { display: flex; justify-content: space-between; gap: 12px; color: var(--color-teal-deep); font-size: .88rem; }
+.uploadStatusHeader strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.progressTrack { height: 9px; overflow: hidden; border-radius: 999px; background: rgba(18,49,52,.13); }
+.progressBar { height: 100%; border-radius: inherit; background: var(--color-teal); transition: width 100ms linear; }
+.percentage { color: var(--color-teal); direction: ltr; font-size: .84rem; font-weight: 700; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.primaryAction, .secondaryAction, .dangerAction { min-height: 42px; border-radius: 9px; cursor: pointer; padding: 9px 13px; font: inherit; font-size: .9rem; font-weight: 700; }
+.primaryAction { border: 1px solid var(--color-teal-deep); background: var(--color-teal-deep); color: var(--color-warm-white); }
+.secondaryAction { border: 1px solid rgba(18,49,52,.22); background: #fff; color: var(--color-teal-deep); }
+.dangerAction { border: 1px solid rgba(172,70,83,.34); background: #fff7f7; color: #8b2c38; }
+.primaryAction:disabled, .secondaryAction:disabled, .dangerAction:disabled, .field input:disabled { cursor: not-allowed; opacity: .62; }
+.successMessage, .errorMessage { border-radius: 9px; padding: 10px 12px; font-size: .9rem; line-height: 1.6; }
+.successMessage { border: 1px solid rgba(30,102,72,.22); background: rgba(87,159,126,.12); color: #1e6648; }
+.errorMessage { border: 1px solid rgba(172,70,83,.24); background: rgba(199,121,131,.12); color: #8b2c38; }
+.videoList { display: grid; gap: 16px; }
+.emptyState { color: var(--color-muted); text-align: center; }
+.videoCard { display: grid; gap: 12px; padding: 14px; border: 1px solid rgba(18,49,52,.14); border-radius: 12px; background: rgba(225,245,236,.25); }
+.video { display: block; width: min(100%, 720px); border-radius: 9px; background: #102f33; }
+.videoDetails { display: grid; gap: 4px; }
+.videoDetails span { color: var(--color-muted); font-size: .84rem; }
+.videoCard .dangerAction { justify-self: start; }
+.primaryAction:focus-visible, .secondaryAction:focus-visible, .dangerAction:focus-visible, .field input:focus-visible, .field input[type="file"]::file-selector-button:focus-visible { outline: 3px solid rgba(199,121,131,.62); outline-offset: 2px; }
+@media (max-width: 600px) { .manager { padding: 20px; } .actions { display: grid; grid-template-columns: 1fr; } .primaryAction, .secondaryAction { width: 100%; } .uploadStatusHeader { align-items: flex-start; flex-direction: column; } }

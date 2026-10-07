@@ -20,6 +20,15 @@ export interface ArticleCoverImage {
   alt: string;
 }
 
+export interface ArticleVideo {
+  id: string;
+  url: string;
+  originalName: string;
+  mimeType: "video/mp4" | "video/webm";
+  sizeBytes: number;
+  createdAt: string;
+}
+
 export interface ArticleListItem {
   id: string;
   title: string;
@@ -30,6 +39,7 @@ export interface ArticleListItem {
   publishedAt: string | null;
   readingTime: number;
   coverImage: ArticleCoverImage | null;
+  videos: ArticleVideo[];
   seoTitle: string | null;
   seoDescription: string | null;
   createdAt: string;

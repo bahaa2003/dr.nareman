@@ -19,6 +19,7 @@ import {
   type ArticleFormValues
 } from "./ArticleForm";
 import { CoverImageManager } from "./CoverImageManager";
+import { ArticleVideoManager } from "./ArticleVideoManager";
 import { ArticleDeleteAction } from "./ArticleDeleteAction";
 import { ArticlePublicationActions } from "./ArticlePublicationActions";
 import styles from "./AdminArticleEditor.module.css";
@@ -275,6 +276,12 @@ export function AdminArticleEditEditor({ articleId }: { articleId: string }) {
       />
       <CoverImageManager
         key={`${article.id}-${article.coverImage?.url ?? "no-cover"}-${article.coverImage?.alt ?? ""}`}
+        article={article}
+        successMessage={mediaSuccessMessage}
+        onArticleChange={handleMediaArticleChange}
+        onUnauthorized={handleMediaUnauthorized}
+      />
+      <ArticleVideoManager
         article={article}
         successMessage={mediaSuccessMessage}
         onArticleChange={handleMediaArticleChange}

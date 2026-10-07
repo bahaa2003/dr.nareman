@@ -3,6 +3,15 @@ export interface PublicArticleCoverImage {
   alt: string;
 }
 
+export interface PublicArticleVideo {
+  id: string;
+  url: string;
+  originalName: string;
+  mimeType: "video/mp4" | "video/webm";
+  sizeBytes: number;
+  createdAt: string;
+}
+
 export interface PublicArticleListItem {
   id: string;
   title: string;
@@ -13,6 +22,7 @@ export interface PublicArticleListItem {
   publishedAt: string;
   readingTime: number;
   coverImage: PublicArticleCoverImage | null;
+  videos: PublicArticleVideo[];
   seoTitle: string | null;
   seoDescription: string | null;
 }

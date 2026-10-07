@@ -135,6 +135,18 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
 
           <ArticleMarkdown content={article.content} />
 
+          {article.videos.length > 0 ? (
+            <section className={styles.videos} aria-label="فيديوهات المقال">
+              <h2>فيديوهات المقال</h2>
+              {article.videos.map((video) => (
+                <video key={video.id} className={styles.video} controls preload="metadata">
+                  <source src={resolveBackendAssetUrl(video.url)} type={video.mimeType} />
+                  متصفحك لا يدعم تشغيل الفيديو.
+                </video>
+              ))}
+            </section>
+          ) : null}
+
           <div className={styles.footerAction}>
             <Link className={styles.backLink} href="/articles">
               <ArrowRight aria-hidden="true" size={18} />
