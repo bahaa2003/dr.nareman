@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useSyncExternalStore, type FormEvent } from "react";
-import { CalendarDays, RefreshCw, ShieldCheck } from "lucide-react";
+import { CalendarDays, MessageCircle, RefreshCw, ShieldCheck } from "lucide-react";
 
 import { getCalculatorAttributionFromLocation, hasMarketingAttribution } from "@/lib/marketing-attribution";
 import { trackMarketingEvent } from "@/lib/marketing-events";
@@ -14,6 +14,7 @@ import {
   type OvulationEstimate
 } from "@/lib/ovulation-calculator";
 import { PublicLeadApiError, createCalculatorLead } from "@/lib/public-api/leads";
+import { bookingFinale } from "@/data/booking";
 
 import styles from "./OvulationCalculator.module.css";
 
@@ -265,8 +266,8 @@ export function OvulationCalculator() {
       <div className={styles.shell}>
         <header className={styles.intro}>
           <p className={styles.eyebrow}>تخطيط تقويمي مبسط</p>
-          <h1 id="ovulation-calculator-title">حاسبة التبويض التقديرية</h1>
-          <p>تساعدكِ هذه الحاسبة على تقدير نافذة الخصوبة وموعد التبويض والدورة التالية من البيانات التي تدخلينها.</p>
+          <h1 id="ovulation-calculator-title">حاسبة التبويض</h1>
+          <p>تساعدكِ هذه الحاسبة على تقدير أيام الخصوبة وموعد التبويض والدورة التالية من البيانات التي تدخلينها.</p>
         </header>
 
         <ol className={styles.steps} aria-label="مراحل استخدام الحاسبة">
@@ -319,7 +320,7 @@ export function OvulationCalculator() {
               </div>
             </form>
           ) : (
-            <section className={styles.completed} aria-label="اكتمل الحساب"><ShieldCheck aria-hidden="true" size={27} /><h2>تم عرض تقديرك</h2><p>هذه المعلومات تقديرية، ويمكنكِ بدء حساب جديد في أي وقت.</p><button className={styles.resetButton} type="button" onClick={reset}><RefreshCw aria-hidden="true" size={17} />بدء حساب جديد</button></section>
+            <section className={styles.completed} aria-label="اكتمل الحساب"><ShieldCheck aria-hidden="true" size={27} /><h2>تم عرض تقديرك</h2><p>هذه المعلومات تقريبية وليست تشخيصًا طبيًا. يمكنكِ بدء حساب جديد في أي وقت.</p><div className={styles.resultActions}><a className={styles.whatsappButton} href={bookingFinale.links.whatsapp.href} target="_blank" rel="noopener noreferrer"><MessageCircle aria-hidden="true" size={19} />تواصلي مع د. ناريمان</a><button className={styles.resetButton} type="button" onClick={reset}><RefreshCw aria-hidden="true" size={17} />بدء حساب جديد</button></div></section>
           )}
 
           <div className={styles.outputColumn}>
@@ -328,7 +329,7 @@ export function OvulationCalculator() {
               <p className={styles.liveMessage} aria-live="polite" aria-atomic="true">تم احتساب التقديرات التقويمية.</p>
               <h2 id="estimate-title" ref={resultHeadingRef} tabIndex={-1}>تقدير الدورة القادمة</h2>
               <div className={styles.resultCards}>
-                <article className={styles.primaryResult + " " + styles.resultCard}><p>نافذة الخصوبة التقديرية</p><strong>{formatArabicGregorianDate(preparedEstimate.fertileWindowStart)}</strong><span>إلى {formatArabicGregorianDate(preparedEstimate.fertileWindowEnd)}</span></article>
+                <article className={styles.primaryResult + " " + styles.resultCard}><p>أيام الخصوبة</p><strong>{formatArabicGregorianDate(preparedEstimate.fertileWindowStart)}</strong><span>إلى {formatArabicGregorianDate(preparedEstimate.fertileWindowEnd)}</span></article>
                 <article className={styles.resultCard}><p>يوم التبويض التقديري</p><strong>{formatArabicGregorianDate(preparedEstimate.estimatedOvulation)}</strong></article>
                 <article className={styles.resultCard}><p>موعد الدورة التالية المتوقع</p><strong>{formatArabicGregorianDate(preparedEstimate.estimatedNextPeriod)}</strong></article>
               </div>
@@ -337,7 +338,7 @@ export function OvulationCalculator() {
           </div>
         </div>
 
-        <aside className={styles.disclaimer} aria-label="تنبيه طبي مهم"><ShieldCheck aria-hidden="true" size={23} /><div><p>هذه التواريخ تقديرات تقويمية مبنية على تاريخ الدورة وطولها، وقد يختلف وقت التبويض من دورة إلى أخرى، خصوصًا عند عدم انتظام الدورة.</p><p>لا تؤكد هذه الحاسبة حدوث التبويض، ولا تُعد تشخيصًا أو اختبار خصوبة أو بديلًا عن التقييم الطبي.</p><p>استشيري الطبيبة عند وجود قلق بشأن الدورة أو الخصوبة، ولا تستخدمي هذه النتائج وحدها لمنع الحمل أو كوسيلة لمنع الحمل.</p></div></aside>
+        <aside className={styles.disclaimer} aria-label="تنبيه طبي مهم"><ShieldCheck aria-hidden="true" size={23} /><div><p>هذه التواريخ تقديرات تقويمية مبنية على تاريخ الدورة وطولها، وقد يختلف وقت التبويض من دورة إلى أخرى، خصوصًا عند عدم انتظام الدورة.</p><p>لا تؤكد هذه الحاسبة حدوث التبويض، ولا تُعد تشخيصًا أو اختبار خصوبة أو بديلًا عن التقييم الطبي.</p><p>عند إرسال بيانات التواصل، تُعالج المعلومات المدخلة وفق سياسة الخصوصية وتُتاح للفريق الطبي المخوّل عند الحاجة. استشيري الطبيبة عند وجود قلق بشأن الدورة أو الخصوبة، ولا تستخدمي هذه النتائج وحدها لمنع الحمل أو كوسيلة لمنع الحمل.</p></div></aside>
       </div>
     </section>
   );

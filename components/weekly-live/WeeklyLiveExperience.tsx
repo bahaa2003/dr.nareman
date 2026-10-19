@@ -205,7 +205,7 @@ export function WeeklyLiveExperience({ initialLive, initialError = false }: { in
 
       {live.acceptingQuestions ? (
         <form className={styles.form} onSubmit={(event) => void submit(event)} noValidate aria-busy={submitting}>
-          <h2>شارك سؤالك</h2>
+          <h2>اسألي د. ناريمان</h2>
           <p className={styles.formLead}>أدخلي بيانات التواصل ثم السؤال العام الذي ترغبين في مشاركته.</p>
           <fieldset className={styles.formGroup}>
             <legend>بيانات التواصل</legend>
@@ -227,7 +227,7 @@ export function WeeklyLiveExperience({ initialLive, initialError = false }: { in
           <p className={styles.privacyDisclosure}>بإرسال البيانات، فإنك توافقين على معالجة بياناتك وفق سياسة الخصوصية.</p>
           <p className={styles.medicalNotice}>إرسال السؤال لا يُعد استشارة طبية خاصة أو تشخيصًا، واللقاء مخصص للتوعية والإجابة العامة.</p>
           {submissionError ? <div className={styles.submitError} ref={errorRef} tabIndex={-1} role="alert"><p>{submissionError.message}</p>{submissionError.refresh ? <button className={styles.textButton} type="button" onClick={() => void refresh()}>تحديث حالة اللقاء</button> : null}</div> : null}
-          <button className={styles.submitButton} disabled={submitting} aria-busy={submitting}>{submitting ? "جارٍ إرسال السؤال…" : "إرسال السؤال والانضمام للقاء"}</button>
+          <button className={styles.submitButton} disabled={submitting} aria-busy={submitting}>{submitting ? "جارٍ إرسال السؤال…" : "اسألي د. ناريمان واحصلي على رابط اللقاء"}</button>
         </form>
       ) : <section className={styles.closed}><h2>استقبال الأسئلة لهذا اللقاء مغلق حاليًا.</h2><p>يمكنك متابعة تفاصيل اللقاء والعودة هنا عند إعلان جلسة جديدة.</p></section>}
     </section>

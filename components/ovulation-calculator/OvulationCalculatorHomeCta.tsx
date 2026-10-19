@@ -12,8 +12,8 @@ export function OvulationCalculatorHomeCta({ attributionSearch = "" }: { attribu
         </div>
         <div className={styles.copy}>
           <p className={styles.eyebrow}>أداة معلوماتية خاصة</p>
-          <h2 id="ovulation-calculator-cta-title">حاسبة التبويض التقديرية</h2>
-          <p>تقدير مبسط لنافذة الخصوبة عند انتظام الدورة غالبًا، دون حفظ أي بيانات.</p>
+          <h2 id="ovulation-calculator-cta-title">حاسبة التبويض</h2>
+          <p>تقدير مبسط لأيام الخصوبة عند انتظام الدورة غالبًا. تُعالج البيانات المرسلة وفق سياسة الخصوصية.</p>
         </div>
         <Link className={styles.cta} href={"/ovulation-calculator" + attributionSearch}>
           <span>ابدئي الحساب</span>

@@ -61,31 +61,9 @@ function VisibilityBadge({ isVisible }: { isVisible: boolean }) {
   return <span className={`${styles.badge} ${isVisible ? styles.visible : styles.hidden}`}>{isVisible ? "ظاهر للعامة" : "مخفي عن العامة"}</span>;
 }
 
-function ConfirmationFields({ privacyConfirmed, publicationApproved, onPrivacyChange, onPublicationChange, prefix, disabled }: {
-  privacyConfirmed: boolean;
-  publicationApproved: boolean;
-  onPrivacyChange: (value: boolean) => void;
-  onPublicationChange: (value: boolean) => void;
-  prefix: string;
-  disabled: boolean;
-}) {
-  return <div className={styles.confirmations}>
-    <label className={styles.checkLabel} htmlFor={`${prefix}-privacy`}>
-      <input id={`${prefix}-privacy`} type="checkbox" checked={privacyConfirmed} disabled={disabled} onChange={(event) => onPrivacyChange(event.target.checked)} />
-      <span><strong>أؤكد مراجعة الخصوصية</strong><small>أؤكد أن التفاصيل المعرِّفة أو الشخصية أُزيلت أو حُجبت بالشكل المناسب.</small></span>
-    </label>
-    <label className={styles.checkLabel} htmlFor={`${prefix}-approval`}>
-      <input id={`${prefix}-approval`} type="checkbox" checked={publicationApproved} disabled={disabled} onChange={(event) => onPublicationChange(event.target.checked)} />
-      <span><strong>أؤكد الموافقة على النشر</strong><small>أؤكد أن نسخة الصورة هذه مسموح ومعتمد نشرها للعامة.</small></span>
-    </label>
-  </div>;
-}
-
 function CreateTestimonial({ onCreated, onUnauthorized }: { onCreated: () => void; onUnauthorized: () => void }) {
   const [file, setFile] = useState<File | null>(null);
   const [alt, setAlt] = useState("");
-  const [privacyConfirmed, setPrivacyConfirmed] = useState(false);
-  const [publicationApproved, setPublicationApproved] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -94,11 +72,10 @@ function CreateTestimonial({ onCreated, onUnauthorized }: { onCreated: () => voi
     event.preventDefault();
     const validation = fileError(file ?? undefined) ?? validAlt(alt);
     if (validation) return setError(validation);
-    if (!privacyConfirmed || !publicationApproved) return setError("يلزم تأكيد مراجعة الخصوصية والموافقة على النشر قبل الرفع.");
     setPending(true); setError(null);
     try {
       await createAdminTestimonial(file as File, alt.trim());
-      setFile(null); setAlt(""); setPrivacyConfirmed(false); setPublicationApproved(false);
+      setFile(null); setAlt("");
       if (inputRef.current) inputRef.current.value = "";
       onCreated();
     } catch (caught) {
@@ -112,7 +89,7 @@ function CreateTestimonial({ onCreated, onUnauthorized }: { onCreated: () => voi
     <form className={styles.createForm} onSubmit={(event) => void submit(event)}>
       <label className={styles.field}>الصورة <span>JPEG أو PNG أو WebP، حتى 5 ميجابايت</span><input ref={inputRef} type="file" accept="image/jpeg,image/png,image/webp" disabled={pending} onChange={(event: ChangeEvent<HTMLInputElement>) => { setFile(event.target.files?.[0] ?? null); setError(null); }} required /></label>
       <label className={styles.field}>النص الوصفي <span className={styles.counter}>{alt.length}/{maxAltLength}</span><input value={alt} maxLength={maxAltLength} required disabled={pending} onChange={(event) => { setAlt(event.target.value); setError(null); }} aria-describedby="testimonial-alt-help" /><small id="testimonial-alt-help">وصف قصير لما يظهر في الصورة لأغراض الوصول. لا تذكر اسمًا أو رقمًا أو تشخيصًا أو أي بيانات تعريفية.</small></label>
-      <ConfirmationFields prefix="testimonial-create" privacyConfirmed={privacyConfirmed} publicationApproved={publicationApproved} onPrivacyChange={setPrivacyConfirmed} onPublicationChange={setPublicationApproved} disabled={pending} />
+      <p className={styles.actionNotice}>بالرفع، تسجلين كمشرفة أن هذه النسخة مُعَدّة وآمنة للنشر. تُحفظ اللقطة مخفية حتى تختاري إظهارها للعامة.</p>
       {error ? <p className={styles.error} role="alert">{error}</p> : null}
       <button className={styles.primaryButton} type="submit" disabled={pending} aria-busy={pending}>{pending ? "جارٍ الرفع…" : "رفع لقطة مخفية"}</button>
     </form>
@@ -129,8 +106,6 @@ function TestimonialCard({ testimonial, onChanged, onDeleted, onUnauthorized }: 
   const [sortOrder, setSortOrder] = useState(String(testimonial.sortOrder));
   const [replacementFile, setReplacementFile] = useState<File | null>(null);
   const [replacementAlt, setReplacementAlt] = useState(testimonial.image.alt);
-  const [privacyConfirmed, setPrivacyConfirmed] = useState(false);
-  const [publicationApproved, setPublicationApproved] = useState(false);
   const [pending, setPending] = useState<PendingAction>(null);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
@@ -151,11 +126,10 @@ function TestimonialCard({ testimonial, onChanged, onDeleted, onUnauthorized }: 
   const replace = async () => {
     const validation = fileError(replacementFile ?? undefined) ?? validAlt(replacementAlt);
     if (validation) return setError(validation);
-    if (!privacyConfirmed || !publicationApproved) return setError("يلزم تأكيد الخصوصية والموافقة على النشر مجددًا للصورة البديلة.");
     setPending("replace"); setError(null); setMessage(null);
     try {
       const updated = await replaceAdminTestimonialImage(testimonial.id, replacementFile as File, replacementAlt.trim());
-      setReplacementFile(null); setPrivacyConfirmed(false); setPublicationApproved(false);
+      setReplacementFile(null);
       if (replacementInputRef.current) replacementInputRef.current.value = "";
       onChanged(updated, "تم استبدال الصورة وتسجيل تأكيدات جديدة.");
     } catch (caught) { if (caught instanceof ApiError && caught.status === 401) onUnauthorized(); else setError(messageFor(caught, "upload")); }
@@ -179,7 +153,7 @@ function TestimonialCard({ testimonial, onChanged, onDeleted, onUnauthorized }: 
         <label className={styles.field}>ترتيب الظهور<input type="number" min="0" max="1000000" step="1" inputMode="numeric" value={sortOrder} disabled={isPending} onChange={(event) => { setSortOrder(event.target.value); setError(null); }} /></label>
         <button type="button" className={styles.secondaryButton} disabled={isPending} aria-busy={pending === "order"} onClick={saveOrder}>حفظ الترتيب</button>
       </div>
-      <details className={styles.replace}><summary><ImagePlus size={17} aria-hidden="true" />استبدال الصورة</summary><p>{testimonial.isVisible ? "هذه اللقطة ظاهرة للعامة حاليًا. بعد الاستبدال الناجح، يحتفظ الخادم بظهورها لأنك ستؤكد النسخة الجديدة أدناه." : "تتطلب الصورة البديلة تأكيدَي الخصوصية والموافقة من جديد."}</p><div className={styles.replaceForm}><label className={styles.field}>الصورة البديلة<input ref={replacementInputRef} type="file" accept="image/jpeg,image/png,image/webp" disabled={isPending} onChange={(event) => { setReplacementFile(event.target.files?.[0] ?? null); setError(null); }} /></label><label className={styles.field}>النص الوصفي للصورة البديلة <span className={styles.counter}>{replacementAlt.length}/{maxAltLength}</span><input value={replacementAlt} maxLength={maxAltLength} disabled={isPending} onChange={(event) => { setReplacementAlt(event.target.value); setError(null); }} /></label><ConfirmationFields prefix={`replace-${testimonial.id}`} privacyConfirmed={privacyConfirmed} publicationApproved={publicationApproved} onPrivacyChange={setPrivacyConfirmed} onPublicationChange={setPublicationApproved} disabled={isPending} /><button type="button" className={styles.primaryButton} disabled={isPending} aria-busy={pending === "replace"} onClick={() => void replace()}>{pending === "replace" ? "جارٍ الاستبدال…" : "استبدال الصورة"}</button></div></details>
+      <details className={styles.replace}><summary><ImagePlus size={17} aria-hidden="true" />استبدال الصورة</summary><p>{testimonial.isVisible ? "هذه اللقطة ظاهرة للعامة حاليًا. استبدال الصورة هو تأكيدك الإداري بأن النسخة الجديدة مُعَدّة وآمنة للنشر." : "استبدال الصورة هو تأكيدك الإداري بأن النسخة الجديدة مُعَدّة وآمنة للنشر."}</p><div className={styles.replaceForm}><label className={styles.field}>الصورة البديلة<input ref={replacementInputRef} type="file" accept="image/jpeg,image/png,image/webp" disabled={isPending} onChange={(event) => { setReplacementFile(event.target.files?.[0] ?? null); setError(null); }} /></label><label className={styles.field}>النص الوصفي للصورة البديلة <span className={styles.counter}>{replacementAlt.length}/{maxAltLength}</span><input value={replacementAlt} maxLength={maxAltLength} disabled={isPending} onChange={(event) => { setReplacementAlt(event.target.value); setError(null); }} /></label><button type="button" className={styles.primaryButton} disabled={isPending} aria-busy={pending === "replace"} onClick={() => void replace()}>{pending === "replace" ? "جارٍ الاستبدال…" : "استبدال الصورة"}</button></div></details>
       {message ? <p className={styles.success} role="status">{message}</p> : null}{error ? <p className={styles.error} role="alert">{error}</p> : null}
     </div>
     <ConfirmDialog isOpen={confirmVisibility} title={testimonial.isVisible ? "إخفاء لقطة الرأي؟" : "إظهار لقطة الرأي للعامة؟"} description={testimonial.isVisible ? "لن تظهر هذه اللقطة في الموقع العام بعد الإخفاء." : "قد تظهر هذه اللقطة في الموقع العام. تأكد من مراجعة الخصوصية واعتماد النشر قبل المتابعة."} confirmLabel={testimonial.isVisible ? "إخفاء اللقطة" : "إظهار للعامة"} isSubmitting={pending === "visibility"} onConfirm={() => { setConfirmVisibility(false); void update({ isVisible: !testimonial.isVisible }, "visibility", testimonial.isVisible ? "تم إخفاء لقطة الرأي." : "أصبحت لقطة الرأي ظاهرة للعامة."); }} onClose={() => setConfirmVisibility(false)} />

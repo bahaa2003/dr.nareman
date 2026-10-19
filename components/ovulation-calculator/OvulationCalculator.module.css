@@ -299,7 +299,8 @@
 }
 
 .calculateButton,
-.resetButton {
+.resetButton,
+.whatsappButton {
   display: inline-flex;
   min-height: 50px;
   align-items: center;
@@ -340,6 +341,23 @@
 .resetButton:hover {
   border-color: var(--color-teal);
   background: rgba(191, 232, 223, 0.24);
+}
+
+.whatsappButton {
+  border: 1px solid #167a4a;
+  background: #167a4a;
+  color: #fff;
+  text-decoration: none;
+}
+
+.whatsappButton:hover {
+  background: #11663d;
+  transform: translateY(-2px);
+}
+
+.whatsappButton:focus-visible {
+  outline: 3px solid rgba(37, 211, 102, 0.42);
+  outline-offset: 3px;
 }
 
 .outputColumn {
@@ -386,6 +404,13 @@
   display: grid;
   justify-items: start;
   align-content: start;
+}
+
+.resultActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
 }
 
 .results h2,
@@ -527,7 +552,8 @@
   }
 
   .calculateButton,
-  .resetButton {
+  .resetButton,
+  .whatsappButton {
     width: 100%;
   }
 
@@ -541,7 +567,8 @@
   .field input,
   .field select,
   .calculateButton,
-  .resetButton {
+  .resetButton,
+  .whatsappButton {
     transition: none;
   }
 }

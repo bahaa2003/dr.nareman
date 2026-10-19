@@ -40,8 +40,6 @@ export async function createAdminTestimonial(file: File, alt: string): Promise<A
   const formData = new FormData();
   formData.append("image", file);
   formData.append("alt", alt);
-  formData.append("privacyConfirmed", "true");
-  formData.append("publicationApproved", "true");
   const response = await apiRequest<AdminTestimonialResponse>("/api/admin/testimonials", { method: "POST", body: formData });
   return required(response, "تعذر إضافة لقطة الرأي الآن. حاول مرة أخرى.").testimonial;
 }
@@ -58,8 +56,6 @@ export async function replaceAdminTestimonialImage(id: string, file: File, alt: 
   const formData = new FormData();
   formData.append("image", file);
   formData.append("alt", alt);
-  formData.append("privacyConfirmed", "true");
-  formData.append("publicationApproved", "true");
   const response = await apiRequest<AdminTestimonialResponse>(
     `/api/admin/testimonials/${encodeURIComponent(id)}/image`,
     { method: "PUT", body: formData }

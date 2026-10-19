@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PublicGtm } from "@/components/analytics/PublicGtm";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,7 +14,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl" data-scroll-behavior="smooth">
-      <body>{children}</body>
+      <body>
+        {children}
+        <PublicGtm />
+      </body>
     </html>
   );
 }

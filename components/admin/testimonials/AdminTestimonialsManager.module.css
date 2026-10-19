@@ -8,6 +8,7 @@
 .createPanel { display: grid; gap: 16px; padding: clamp(20px, 4vw, 30px); }
 .privacyNotice { display: flex; gap: 9px; margin: 0; border: 1px solid rgba(199,121,131,.28); border-radius: 10px; background: rgba(199,121,131,.09); color: #6d3940; padding: 12px; line-height: 1.75; }
 .privacyNotice svg { flex: 0 0 auto; margin-top: 4px; }
+.actionNotice { margin: 0; border-inline-start: 3px solid var(--color-teal); color: var(--color-teal-deep); font-size: .9rem; font-weight: 650; line-height: 1.75; padding-inline-start: 12px; }
 .createForm, .replaceForm { display: grid; gap: 15px; max-width: 720px; }
 .field { display: grid; gap: 7px; color: var(--color-teal-deep); font-size: .92rem; font-weight: 700; }
 .field > span:not(.counter), .field small { color: var(--color-muted); font-size: .8rem; font-weight: 400; line-height: 1.6; }
@@ -15,18 +16,12 @@
 .field input[type="file"] { max-width: 100%; color: var(--color-ink); font: inherit; }
 .field input[type="file"]::file-selector-button { margin-inline-end: 9px; border: 1px solid rgba(18,49,52,.2); border-radius: 7px; background: #fff; color: var(--color-teal-deep); cursor: pointer; padding: 7px 10px; font: inherit; font-weight: 700; }
 .counter { color: var(--color-muted); direction: ltr; font-size: .78rem; font-weight: 400; }
-.confirmations { display: grid; gap: 10px; }
-.checkLabel { display: flex; align-items: flex-start; gap: 10px; border: 1px solid rgba(18,49,52,.13); border-radius: 10px; background: #fff; padding: 11px; color: var(--color-ink); cursor: pointer; }
-.checkLabel input { width: 18px; height: 18px; margin-top: 3px; accent-color: var(--color-teal-deep); }
-.checkLabel span { display: grid; gap: 3px; }
-.checkLabel strong { color: var(--color-teal-deep); font-size: .9rem; }
-.checkLabel small { color: var(--color-muted); line-height: 1.55; }
 .primaryButton, .secondaryButton, .dangerButton { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 42px; border-radius: 9px; cursor: pointer; padding: 9px 13px; font: inherit; font-size: .9rem; font-weight: 700; }
 .primaryButton { width: fit-content; border: 1px solid var(--color-teal-deep); background: var(--color-teal-deep); color: var(--color-warm-white); }
 .secondaryButton { border: 1px solid rgba(18,49,52,.22); background: #fff; color: var(--color-teal-deep); }
 .dangerButton { border: 1px solid rgba(172,70,83,.34); background: #fff7f7; color: #8b2c38; }
-.primaryButton:disabled, .secondaryButton:disabled, .dangerButton:disabled, .field input:disabled, .checkLabel:has(input:disabled) { cursor: not-allowed; opacity: .64; }
-.primaryButton:focus-visible, .secondaryButton:focus-visible, .dangerButton:focus-visible, .field input:focus-visible, .filterLabel select:focus-visible, .checkLabel:has(input:focus-visible) { outline: 3px solid rgba(199,121,131,.62); outline-offset: 2px; }
+.primaryButton:disabled, .secondaryButton:disabled, .dangerButton:disabled, .field input:disabled { cursor: not-allowed; opacity: .64; }
+.primaryButton:focus-visible, .secondaryButton:focus-visible, .dangerButton:focus-visible, .field input:focus-visible, .filterLabel select:focus-visible { outline: 3px solid rgba(199,121,131,.62); outline-offset: 2px; }
 .error, .success { margin: 0; border-radius: 9px; padding: 10px 12px; line-height: 1.6; }
 .error { border: 1px solid rgba(172,70,83,.24); background: rgba(199,121,131,.12); color: #8b2c38; }
 .success { border: 1px solid rgba(30,102,72,.22); background: rgba(87,159,126,.12); color: #1e6648; }

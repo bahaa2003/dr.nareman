@@ -36,7 +36,7 @@ export function WeeklyLiveHomeCta({ live, attributionSearch = "" }: { live: Publ
           <p>بتوقيت السعودية</p>
           <Link className={styles.cta} href={"/weekly-live" + attributionSearch}>
             <MessageCircle aria-hidden="true" size={19} />
-            {live.acceptingQuestions ? "شارك سؤالك" : "تفاصيل اللقاء"}
+            {live.acceptingQuestions ? "اسألي د. ناريمان" : "تفاصيل اللقاء"}
           </Link>
         </div>
       </div>
