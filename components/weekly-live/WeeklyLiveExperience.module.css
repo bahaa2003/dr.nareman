@@ -3,3 +3,60 @@
 
 .formGroup { display: grid; min-inline-size: 0; gap: 15px; margin: 0; padding: 18px; border: 1px solid rgba(18,49,52,.12); border-radius: 16px; }
 .formGroup legend { padding: 0 6px; color: var(--color-teal-deep); font-family: var(--font-display); font-size: 1.1rem; font-weight: 800; }
+
+.privacyDisclosure {
+  margin: 0;
+  border-radius: 12px;
+  background: rgba(191, 232, 223, .24);
+  color: var(--color-teal-deep);
+  padding: 13px;
+  font-size: .88rem;
+  line-height: 1.75;
+}
+
+.joinUrl {
+  display: grid;
+  width: min(100%, 680px);
+  gap: 10px;
+  margin-top: 7px;
+}
+
+.joinUrl a,
+.joinUrl button {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border-radius: 13px;
+  padding: 10px 14px;
+  font: inherit;
+  font-weight: 800;
+}
+
+.joinUrl a {
+  direction: ltr;
+  overflow-wrap: anywhere;
+  border: 1px solid rgba(18, 49, 52, .17);
+  background: #fff;
+  color: var(--color-teal-deep);
+  text-decoration: none;
+}
+
+.joinUrl button {
+  border: 1px solid var(--color-teal-deep);
+  background: var(--color-teal-deep);
+  color: #fff;
+  cursor: pointer;
+}
+
+.joinUrl a:focus-visible,
+.joinUrl button:focus-visible {
+  outline: 3px solid rgba(199, 121, 131, .64);
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .joinUrl a,
+  .joinUrl button { width: 100%; }
+}

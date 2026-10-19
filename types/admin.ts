@@ -232,6 +232,18 @@ export interface AdminLead {
     referrerHost: string | null;
     clickIds: { gclid: string | null; fbclid: string | null; ttclid: string | null; msclkid: string | null };
   };
+  healthContext: {
+    ovulationCalculator: {
+      lastPeriodStart: string;
+      cycleLength: number;
+      estimatedOvulation: string;
+      fertileWindowStart: string;
+      fertileWindowEnd: string;
+      estimatedNextPeriod: string;
+      calculatedAt: string;
+      calculationVersion: "v1";
+    } | null;
+  };
   privacyNoticeAcceptedAt: string;
   marketingConsent: boolean;
   marketingConsentAt: string | null;

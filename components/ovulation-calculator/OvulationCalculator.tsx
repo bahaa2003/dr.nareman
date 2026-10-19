@@ -17,10 +17,9 @@ import { PublicLeadApiError, createCalculatorLead } from "@/lib/public-api/leads
 
 import styles from "./OvulationCalculator.module.css";
 
-type Regularity = "" | "regular" | "irregular";
 type Stage = "input" | "lead" | "result";
-type HealthFieldName = "regularity" | "lastPeriod" | "cycleLength";
-type LeadFieldName = "name" | "phone" | "email" | "privacyNotice";
+type HealthFieldName = "lastPeriod" | "cycleLength";
+type LeadFieldName = "name" | "phone" | "email";
 type HealthErrors = Partial<Record<HealthFieldName, string>>;
 type LeadErrors = Partial<Record<LeadFieldName, string>>;
 
@@ -79,7 +78,6 @@ function selectedCycleLength(value: FormDataEntryValue | null): number | null {
 }
 
 export function OvulationCalculator() {
-  const [regularity, setRegularity] = useState<Regularity>("");
   const [lastPeriod, setLastPeriod] = useState("");
   const [cycleLength, setCycleLength] = useState<number | null>(null);
   const [healthErrors, setHealthErrors] = useState<HealthErrors>(emptyHealthErrors);
@@ -89,20 +87,16 @@ export function OvulationCalculator() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [privacyNoticeAccepted, setPrivacyNoticeAccepted] = useState(false);
-  const [marketingConsent, setMarketingConsent] = useState(false);
   const [leadErrors, setLeadErrors] = useState<LeadErrors>(emptyLeadErrors);
   const [leadError, setLeadError] = useState<string | null>(null);
   const [submittingLead, setSubmittingLead] = useState(false);
   const todayIso = useSyncExternalStore(subscribeToLocalDate, getLocalDateSnapshot, getServerDateSnapshot);
-  const regularityRef = useRef<HTMLInputElement>(null);
   const lastPeriodRef = useRef<HTMLInputElement>(null);
   const cycleLengthRef = useRef<HTMLSelectElement>(null);
   const leadHeadingRef = useRef<HTMLHeadingElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
-  const privacyRef = useRef<HTMLInputElement>(null);
   const resultHeadingRef = useRef<HTMLHeadingElement>(null);
   const calculatorViewTracked = useRef(false);
   const leadStageTracked = useRef(false);
@@ -139,20 +133,7 @@ export function OvulationCalculator() {
     setCalculationError(null);
   };
 
-  const selectRegularity = (nextRegularity: Regularity) => {
-    setRegularity(nextRegularity);
-    setHealthErrors((current) => ({ ...current, regularity: undefined }));
-    invalidatePreparedEstimate();
-
-    if (nextRegularity === "irregular") {
-      setLastPeriod("");
-      setCycleLength(null);
-      setHealthErrors(emptyHealthErrors);
-    }
-  };
-
   const focusFirstHealthInvalid = (nextErrors: HealthErrors) => {
-    if (nextErrors.regularity) return regularityRef.current?.focus();
     if (nextErrors.lastPeriod) return lastPeriodRef.current?.focus();
     if (nextErrors.cycleLength) cycleLengthRef.current?.focus();
   };
@@ -161,32 +142,15 @@ export function OvulationCalculator() {
     if (nextErrors.name) return nameRef.current?.focus();
     if (nextErrors.phone) return phoneRef.current?.focus();
     if (nextErrors.email) return emailRef.current?.focus();
-    if (nextErrors.privacyNotice) privacyRef.current?.focus();
   };
 
   const calculate = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const nextErrors: HealthErrors = {};
     const formData = new FormData(event.currentTarget);
-    const submittedRegularity = formData.get("cycle-regularity");
     const submittedLastPeriod = formData.get("last-period");
     const submittedCycleLength = selectedCycleLength(formData.get("cycle-length"));
     setCalculationError(null);
-
-    if (submittedRegularity !== "regular" && submittedRegularity !== "irregular") {
-      nextErrors.regularity = "اختاري ما إذا كانت دورتك منتظمة عادةً.";
-      setPreparedEstimate(null);
-      setHealthErrors(nextErrors);
-      focusFirstHealthInvalid(nextErrors);
-      return;
-    }
-
-    if (submittedRegularity === "irregular") {
-      setPreparedEstimate(null);
-      setStage("input");
-      setHealthErrors(emptyHealthErrors);
-      return;
-    }
 
     try {
       const validation = validateRegularCycleInput(
@@ -226,7 +190,7 @@ export function OvulationCalculator() {
 
   const submitLead = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!preparedEstimate || submittingLead) return;
+    if (!preparedEstimate || cycleLength === null || submittingLead) return;
 
     const nextErrors: LeadErrors = {};
     const normalizedName = name.trim();
@@ -237,8 +201,6 @@ export function OvulationCalculator() {
     else if (normalizedName.length > 100) nextErrors.name = "الاسم طويل جدًا.";
     if (!normalizedPhone) nextErrors.phone = "أدخلي رقم الهاتف.";
     if (normalizedEmail && !isLikelyEmail(normalizedEmail)) nextErrors.email = "أدخلي بريدًا إلكترونيًا صحيحًا أو اتركيه فارغًا.";
-    if (!privacyNoticeAccepted) nextErrors.privacyNotice = "يلزم تأكيد الاطلاع على إشعار الخصوصية للمتابعة.";
-
     if (Object.keys(nextErrors).length > 0) {
       setLeadErrors(nextErrors);
       setLeadError(null);
@@ -257,13 +219,21 @@ export function OvulationCalculator() {
         phone: normalizedPhone,
         ...(normalizedEmail ? { email: normalizedEmail } : {}),
         source: "ovulation_calculator",
-        privacyNoticeAccepted: true,
-        marketingConsent,
+        healthContext: {
+          ovulationCalculator: {
+            lastPeriodStart: lastPeriod,
+            cycleLength,
+            estimatedOvulation: toIsoCalendarDate(preparedEstimate.estimatedOvulation),
+            fertileWindowStart: toIsoCalendarDate(preparedEstimate.fertileWindowStart),
+            fertileWindowEnd: toIsoCalendarDate(preparedEstimate.fertileWindowEnd),
+            estimatedNextPeriod: toIsoCalendarDate(preparedEstimate.estimatedNextPeriod)
+          }
+        },
         attribution
       });
       trackMarketingEvent("ovulation_lead_submitted", {
         source: "ovulation_calculator",
-        marketingConsent,
+        marketingConsent: false,
         hasAttribution: hasMarketingAttribution(attribution)
       });
       setStage("result");
@@ -275,7 +245,6 @@ export function OvulationCalculator() {
   };
 
   const reset = () => {
-    setRegularity("");
     setLastPeriod("");
     setCycleLength(null);
     setHealthErrors(emptyHealthErrors);
@@ -285,15 +254,11 @@ export function OvulationCalculator() {
     setName("");
     setPhone("");
     setEmail("");
-    setPrivacyNoticeAccepted(false);
-    setMarketingConsent(false);
     setLeadErrors(emptyLeadErrors);
     setLeadError(null);
     setSubmittingLead(false);
-    regularityRef.current?.focus();
+    lastPeriodRef.current?.focus();
   };
-
-  const isRegular = regularity === "regular";
 
   return (
     <section className={styles.section} aria-labelledby="ovulation-calculator-title">
@@ -301,7 +266,7 @@ export function OvulationCalculator() {
         <header className={styles.intro}>
           <p className={styles.eyebrow}>تخطيط تقويمي مبسط</p>
           <h1 id="ovulation-calculator-title">حاسبة التبويض التقديرية</h1>
-          <p>تساعدكِ هذه الحاسبة على تقدير نافذة الخصوبة وموعد التبويض والدورة التالية عند انتظام الدورة غالبًا.</p>
+          <p>تساعدكِ هذه الحاسبة على تقدير نافذة الخصوبة وموعد التبويض والدورة التالية من البيانات التي تدخلينها.</p>
         </header>
 
         <ol className={styles.steps} aria-label="مراحل استخدام الحاسبة">
@@ -313,17 +278,7 @@ export function OvulationCalculator() {
         <div className={styles.contentGrid}>
           {stage === "input" ? (
             <form className={styles.form} onSubmit={calculate} noValidate>
-              <fieldset className={styles.regularity} aria-describedby={healthErrors.regularity ? "regularity-error" : undefined}>
-                <legend>هل دورتك منتظمة عادةً؟</legend>
-                <p className={styles.fieldHint}>أي أنها متقاربة المدة من شهر لآخر.</p>
-                <div className={styles.radioGroup}>
-                  <label><input ref={regularityRef} type="radio" name="cycle-regularity" value="regular" checked={regularity === "regular"} onChange={() => selectRegularity("regular")} /><span>نعم، غالبًا</span></label>
-                  <label><input type="radio" name="cycle-regularity" value="irregular" checked={regularity === "irregular"} onChange={() => selectRegularity("irregular")} /><span>لا، تختلف من شهر لآخر</span></label>
-                </div>
-                {healthErrors.regularity ? <p className={styles.fieldError} id="regularity-error">{healthErrors.regularity}</p> : null}
-              </fieldset>
-
-              {isRegular ? <div className={styles.regularFields}>
+              <div className={styles.regularFields}>
                 <label className={styles.field} htmlFor="last-period">
                   <span>اليوم الأول من آخر دورة</span>
                   <input ref={lastPeriodRef} id="last-period" name="last-period" className={styles.dateInput} type="date" max={todayIso || undefined} value={lastPeriod} aria-invalid={Boolean(healthErrors.lastPeriod)} aria-describedby={healthErrors.lastPeriod ? "last-period-error" : undefined} onChange={(event) => { setLastPeriod(event.target.value); setHealthErrors((current) => ({ ...current, lastPeriod: undefined })); invalidatePreparedEstimate(); }} />
@@ -335,10 +290,10 @@ export function OvulationCalculator() {
                     <option value="" disabled>اختاري متوسط طول الدورة</option>
                     {Array.from({ length: 15 }, (_, index) => 21 + index).map((days) => <option key={days} value={String(days)}>{days} يومًا</option>)}
                   </select>
-                  <small id="cycle-length-hint">للدورات المنتظمة غالبًا بين 21 و35 يومًا.</small>
+                  <small id="cycle-length-hint">اختاري متوسطًا بين 21 و35 يومًا.</small>
                   {healthErrors.cycleLength ? <small className={styles.fieldError} id="cycle-length-error">{healthErrors.cycleLength}</small> : null}
                 </label>
-              </div> : null}
+              </div>
 
               <div className={styles.actions}>
                 {calculationError ? <p className={styles.submitError} role="alert">{calculationError}</p> : null}
@@ -351,14 +306,12 @@ export function OvulationCalculator() {
               <div className={styles.leadHeader}>
                 <p className={styles.eyebrow}>بيانات التواصل</p>
                 <h2 ref={leadHeadingRef} tabIndex={-1}>نتيجتك جاهزة</h2>
-                <p>أدخلي بيانات التواصل لعرض التقدير. لن يتم إرسال بيانات الدورة ضمن بيانات التواصل.</p>
+                <p>أدخلي بيانات التواصل لعرض التقدير. تُحفظ بيانات الحاسبة مع طلبك بشكل آمن لمراجعتها من الفريق الطبي عند الحاجة.</p>
               </div>
               <label className={styles.field} htmlFor="lead-name"><span>الاسم</span><input ref={nameRef} id="lead-name" autoComplete="name" maxLength={100} value={name} aria-invalid={Boolean(leadErrors.name)} aria-describedby={leadErrors.name ? "lead-name-error" : undefined} onChange={(event) => { setName(event.target.value); setLeadErrors((current) => ({ ...current, name: undefined })); }} />{leadErrors.name ? <small className={styles.fieldError} id="lead-name-error">{leadErrors.name}</small> : null}</label>
               <label className={styles.field} htmlFor="lead-phone"><span>رقم الهاتف</span><input ref={phoneRef} id="lead-phone" type="tel" inputMode="tel" autoComplete="tel" maxLength={60} value={phone} aria-invalid={Boolean(leadErrors.phone)} aria-describedby={leadErrors.phone ? "lead-phone-error" : undefined} onChange={(event) => { setPhone(event.target.value); setLeadErrors((current) => ({ ...current, phone: undefined })); }} />{leadErrors.phone ? <small className={styles.fieldError} id="lead-phone-error">{leadErrors.phone}</small> : null}</label>
-              <label className={styles.field} htmlFor="lead-email"><span>البريد الإلكتروني (اختياري)</span><input ref={emailRef} id="lead-email" type="email" inputMode="email" autoComplete="email" maxLength={254} value={email} aria-invalid={Boolean(leadErrors.email)} aria-describedby={leadErrors.email ? "lead-email-error" : undefined} onChange={(event) => { setEmail(event.target.value); setLeadErrors((current) => ({ ...current, email: undefined })); }} />{leadErrors.email ? <small className={styles.fieldError} id="lead-email-error">{leadErrors.email}</small> : null}</label>
-              <label className={styles.consent} htmlFor="lead-privacy-notice"><input ref={privacyRef} id="lead-privacy-notice" type="checkbox" checked={privacyNoticeAccepted} aria-invalid={Boolean(leadErrors.privacyNotice)} aria-describedby={leadErrors.privacyNotice ? "lead-privacy-error" : undefined} onChange={(event) => { setPrivacyNoticeAccepted(event.target.checked); setLeadErrors((current) => ({ ...current, privacyNotice: undefined })); }} /><span>قرأت إشعار الخصوصية وأوافق على معالجة بيانات التواصل اللازمة لإتمام طلبي وعرض النتيجة.</span></label>
-              {leadErrors.privacyNotice ? <p className={styles.fieldError} id="lead-privacy-error">{leadErrors.privacyNotice}</p> : null}
-              <label className={styles.consent} htmlFor="lead-marketing-consent"><input id="lead-marketing-consent" type="checkbox" checked={marketingConsent} onChange={(event) => setMarketingConsent(event.target.checked)} /><span>أوافق على التواصل معي بخصوص خدمات ومحتوى د. ناريمان. هذا الخيار اختياري.</span></label>
+              <label className={styles.field} htmlFor="lead-email"><span>البريد الإلكتروني</span><input ref={emailRef} id="lead-email" type="email" inputMode="email" autoComplete="email" maxLength={254} value={email} aria-invalid={Boolean(leadErrors.email)} aria-describedby={leadErrors.email ? "lead-email-error" : undefined} onChange={(event) => { setEmail(event.target.value); setLeadErrors((current) => ({ ...current, email: undefined })); }} />{leadErrors.email ? <small className={styles.fieldError} id="lead-email-error">{leadErrors.email}</small> : null}</label>
+              <p className={styles.privacyDisclosure}>بإرسال البيانات، فإنك توافقين على معالجة بياناتك وفق سياسة الخصوصية.</p>
               {leadError ? <p className={styles.submitError} role="alert">{leadError}</p> : null}
               <div className={styles.actions}>
                 <button className={styles.calculateButton} type="submit" disabled={submittingLead} aria-busy={submittingLead}>{submittingLead ? "جارٍ عرض النتيجة…" : "عرض النتيجة"}</button>
@@ -370,7 +323,6 @@ export function OvulationCalculator() {
           )}
 
           <div className={styles.outputColumn}>
-            {regularity === "irregular" ? <section className={styles.limitation} aria-labelledby="irregular-cycle-title" role="status"><ShieldCheck aria-hidden="true" size={27} /><div><h2 id="irregular-cycle-title">الدورة غير المنتظمة</h2><p>إذا كانت دورتك غير منتظمة أو تتغير مدتها، فلا يمكن لهذه الحاسبة التقويمية تقديم تقدير موثوق لموعد التبويض.</p><p>يمكنكِ التحدث إلى مختص عند وجود قلق بشأن الدورة أو الخصوبة.</p></div></section> : null}
             {stage === "lead" && preparedEstimate ? <section className={styles.prepared} role="status" aria-live="polite"><ShieldCheck aria-hidden="true" size={26} /><div><h2>نتيجتك جاهزة</h2><p>أكملي بيانات التواصل لعرض التقدير التقويمي. لن تظهر تواريخ النتيجة قبل نجاح الإرسال.</p></div></section> : null}
             {stage === "result" && preparedEstimate ? <section className={styles.results} aria-labelledby="estimate-title">
               <p className={styles.liveMessage} aria-live="polite" aria-atomic="true">تم احتساب التقديرات التقويمية.</p>
@@ -385,7 +337,7 @@ export function OvulationCalculator() {
           </div>
         </div>
 
-        <aside className={styles.disclaimer} aria-label="تنبيه طبي مهم"><ShieldCheck aria-hidden="true" size={23} /><div><p>هذه التواريخ تقديرات تقويمية مبنية على تاريخ الدورة وطولها، وقد يختلف وقت التبويض من دورة إلى أخرى.</p><p>لا تؤكد هذه الحاسبة حدوث التبويض، ولا تُعد تشخيصًا أو اختبار خصوبة أو بديلًا عن التقييم الطبي.</p><p>لا تستخدمي هذه النتائج وحدها لمنع الحمل أو كوسيلة لمنع الحمل.</p></div></aside>
+        <aside className={styles.disclaimer} aria-label="تنبيه طبي مهم"><ShieldCheck aria-hidden="true" size={23} /><div><p>هذه التواريخ تقديرات تقويمية مبنية على تاريخ الدورة وطولها، وقد يختلف وقت التبويض من دورة إلى أخرى، خصوصًا عند عدم انتظام الدورة.</p><p>لا تؤكد هذه الحاسبة حدوث التبويض، ولا تُعد تشخيصًا أو اختبار خصوبة أو بديلًا عن التقييم الطبي.</p><p>استشيري الطبيبة عند وجود قلق بشأن الدورة أو الخصوبة، ولا تستخدمي هذه النتائج وحدها لمنع الحمل أو كوسيلة لمنع الحمل.</p></div></aside>
       </div>
     </section>
   );

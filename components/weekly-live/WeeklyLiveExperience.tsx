@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { ArrowRight, CalendarDays, CheckCircle2, ExternalLink, RefreshCw, ShieldCheck } from "lucide-react";
+import { ArrowRight, CalendarDays, Check, CheckCircle2, Copy, ExternalLink, RefreshCw, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 
 import { getWeeklyLiveAttributionFromLocation, hasMarketingAttribution } from "@/lib/marketing-attribution";
@@ -16,21 +16,16 @@ type FormValues = {
   contactName: string;
   phone: string;
   email: string;
-  displayName: string;
   age: string;
   region: string;
   city: string;
   question: string;
-  consent: boolean;
-  privacyNoticeAccepted: boolean;
-  marketingConsent: boolean;
 };
 type FieldName = keyof FormValues;
 type FieldErrors = Partial<Record<FieldName, string>>;
 
 const emptyValues: FormValues = {
-  contactName: "", phone: "", email: "", displayName: "", age: "", region: "", city: "", question: "",
-  consent: false, privacyNoticeAccepted: false, marketingConsent: false
+  contactName: "", phone: "", email: "", age: "", region: "", city: "", question: ""
 };
 
 function isLikelyEmail(value: string): boolean {
@@ -40,7 +35,6 @@ function isLikelyEmail(value: string): boolean {
 function validate(values: FormValues): FieldErrors {
   const errors: FieldErrors = {};
   const contactName = values.contactName.trim();
-  const displayName = values.displayName.trim();
   const region = values.region.trim();
   const city = values.city.trim();
   const question = values.question.trim();
@@ -49,13 +43,10 @@ function validate(values: FormValues): FieldErrors {
   if (!contactName || contactName.length > 100) errors.contactName = "أدخلي اسم التواصل.";
   if (!values.phone.trim()) errors.phone = "أدخلي رقم الهاتف.";
   if (values.email.trim() && !isLikelyEmail(values.email.trim())) errors.email = "أدخلي بريدًا إلكترونيًا صحيحًا أو اتركيه فارغًا.";
-  if (displayName.length < 2 || displayName.length > 80) errors.displayName = "أدخلي اسمًا أولًا أو اسمًا مستعارًا من حرفين إلى 80 حرفًا.";
   if (!/^\d+$/u.test(values.age) || !Number.isInteger(age) || age < 18 || age > 100) errors.age = "أدخلي عمرًا صحيحًا من 18 إلى 100.";
   if (!region || region.length > 80) errors.region = "أدخلي المنطقة.";
   if (!city || city.length > 100) errors.city = "أدخلي المدينة.";
   if (question.length < 10 || question.length > 2_000) errors.question = "اكتبي سؤالًا من 10 إلى 2000 حرف.";
-  if (!values.consent) errors.consent = "الموافقة الخاصة بالسؤال مطلوبة لإرسال السؤال.";
-  if (!values.privacyNoticeAccepted) errors.privacyNoticeAccepted = "يلزم تأكيد إشعار الخصوصية للمتابعة.";
   return errors;
 }
 
@@ -78,18 +69,16 @@ export function WeeklyLiveExperience({ initialLive, initialError = false }: { in
   const [submissionError, setSubmissionError] = useState<{ message: string; refresh: boolean } | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState<PublicWeeklyLiveSubmissionResponse | null>(null);
+  const [copied, setCopied] = useState(false);
   const errorRef = useRef<HTMLDivElement>(null);
   const successRef = useRef<HTMLDivElement>(null);
   const contactNameRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
-  const displayNameRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
   const regionRef = useRef<HTMLInputElement>(null);
   const cityRef = useRef<HTMLInputElement>(null);
   const questionRef = useRef<HTMLTextAreaElement>(null);
-  const questionConsentRef = useRef<HTMLInputElement>(null);
-  const privacyRef = useRef<HTMLInputElement>(null);
   const weeklyLiveOpenedTracked = useRef(false);
   const leadStartedTracked = useRef(false);
 
@@ -124,13 +113,10 @@ export function WeeklyLiveExperience({ initialLive, initialError = false }: { in
     if (nextErrors.contactName) return contactNameRef.current?.focus();
     if (nextErrors.phone) return phoneRef.current?.focus();
     if (nextErrors.email) return emailRef.current?.focus();
-    if (nextErrors.displayName) return displayNameRef.current?.focus();
     if (nextErrors.age) return ageRef.current?.focus();
     if (nextErrors.region) return regionRef.current?.focus();
     if (nextErrors.city) return cityRef.current?.focus();
     if (nextErrors.question) return questionRef.current?.focus();
-    if (nextErrors.consent) return questionConsentRef.current?.focus();
-    if (nextErrors.privacyNoticeAccepted) privacyRef.current?.focus();
   };
 
   const submit = async (event: FormEvent<HTMLFormElement>) => {
@@ -150,14 +136,10 @@ export function WeeklyLiveExperience({ initialLive, initialError = false }: { in
       contactName: values.contactName.trim(),
       phone: values.phone.trim(),
       ...(values.email.trim() ? { email: values.email.trim() } : {}),
-      displayName: values.displayName.trim(),
       age: Number(values.age),
       region: values.region.trim(),
       city: values.city.trim(),
       question: values.question.trim(),
-      consent: true,
-      privacyNoticeAccepted: true,
-      marketingConsent: values.marketingConsent,
       attribution
     };
 
@@ -166,10 +148,11 @@ export function WeeklyLiveExperience({ initialLive, initialError = false }: { in
       const response = await submitWeeklyLiveQuestion(live.id, payload);
       trackMarketingEvent("weekly_live_question_submitted", {
         source: "weekly_live",
-        marketingConsent: values.marketingConsent,
+        marketingConsent: false,
         hasAttribution: hasMarketingAttribution(attribution)
       });
       trackMarketingEvent("weekly_live_join_available", { source: "weekly_live" });
+      setCopied(false);
       setSuccess(response);
     } catch (error) {
       setSubmissionError(submissionMessage(error));
@@ -178,7 +161,7 @@ export function WeeklyLiveExperience({ initialLive, initialError = false }: { in
     }
   };
 
-  const update = (field: FieldName, value: string | boolean) => {
+  const update = (field: FieldName, value: string) => {
     if (!leadStartedTracked.current) {
       leadStartedTracked.current = true;
       trackMarketingEvent("weekly_live_lead_started", {
@@ -194,7 +177,17 @@ export function WeeklyLiveExperience({ initialLive, initialError = false }: { in
   if (loading) return <section className={styles.state} aria-live="polite">جارٍ تحديث تفاصيل اللقاء…</section>;
   if (loadError) return <section className={styles.state} role="alert"><h1>تعذر تحميل اللقاء الأسبوعي</h1><p>يرجى المحاولة مرة أخرى بعد قليل.</p><button className={styles.secondaryButton} type="button" onClick={() => void refresh()}><RefreshCw aria-hidden="true" size={17} />إعادة المحاولة</button></section>;
   if (!live) return <section className={styles.state}><CalendarDays aria-hidden="true" size={33} /><h1>لا يوجد لقاء أسبوعي معلن حاليًا.</h1><p>سيتم الإعلان عن موعد اللقاء القادم هنا عند تحديده.</p><Link className={styles.secondaryButton} href="/"><ArrowRight aria-hidden="true" size={17} />العودة إلى الصفحة الرئيسية</Link></section>;
-  if (success) return <section className={styles.successState} ref={successRef} tabIndex={-1}><CheckCircle2 aria-hidden="true" size={42} /><p className={styles.eyebrow}>تم الاستلام</p><h1>تم استلام سؤالك بنجاح</h1><p>شكرًا لمشاركتك. يمكنك الآن الاحتفاظ بموعد اللقاء أو الدخول من الرابط التالي في موعده.</p><div className={styles.successEvent}><strong>{success.event.title}</strong><span>{formatRiyadhDateTime(success.event.scheduledAt, "بتوقيت السعودية")}</span></div><a className={styles.joinButton} href={success.joinUrl} target="_blank" rel="noopener noreferrer"><ExternalLink aria-hidden="true" size={19} />الدخول إلى اللقاء</a></section>;
+  const copyJoinUrl = async () => {
+    if (!success || !navigator.clipboard) return;
+    try {
+      await navigator.clipboard.writeText(success.joinUrl);
+      setCopied(true);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  if (success) return <section className={styles.successState} ref={successRef} tabIndex={-1}><CheckCircle2 aria-hidden="true" size={42} /><p className={styles.eyebrow}>تم الاستلام</p><h1>تم استلام سؤالك بنجاح</h1><p>شكرًا لمشاركتك. يمكنك الآن الاحتفاظ بموعد اللقاء أو الدخول من الرابط التالي في موعده.</p><div className={styles.successEvent}><strong>{success.event.title}</strong><span>{formatRiyadhDateTime(success.event.scheduledAt, "بتوقيت السعودية")}</span></div><div className={styles.joinUrl}><a href={success.joinUrl} target="_blank" rel="noopener noreferrer"><ExternalLink aria-hidden="true" size={19} />{success.joinUrl}</a><button type="button" onClick={() => void copyJoinUrl()} aria-live="polite">{copied ? <><Check aria-hidden="true" size={18} />تم النسخ</> : <><Copy aria-hidden="true" size={18} />نسخ الرابط</>}</button></div></section>;
 
   return (
     <section className={styles.page}>
@@ -219,12 +212,11 @@ export function WeeklyLiveExperience({ initialLive, initialError = false }: { in
             <Field label="الاسم للتواصل" error={errors.contactName} id="contact-name"><input ref={contactNameRef} id="contact-name" autoComplete="name" maxLength={100} value={values.contactName} aria-invalid={Boolean(errors.contactName)} aria-describedby={errors.contactName ? "contact-name-error" : undefined} onChange={(event) => update("contactName", event.target.value)} /></Field>
             <div className={styles.twoColumns}>
               <Field label="رقم الهاتف" error={errors.phone} id="contact-phone"><input ref={phoneRef} id="contact-phone" type="tel" inputMode="tel" autoComplete="tel" maxLength={60} value={values.phone} aria-invalid={Boolean(errors.phone)} aria-describedby={errors.phone ? "contact-phone-error" : undefined} onChange={(event) => update("phone", event.target.value)} /></Field>
-              <Field label="البريد الإلكتروني (اختياري)" error={errors.email} id="contact-email"><input ref={emailRef} id="contact-email" type="email" inputMode="email" autoComplete="email" maxLength={254} value={values.email} aria-invalid={Boolean(errors.email)} aria-describedby={errors.email ? "contact-email-error" : undefined} onChange={(event) => update("email", event.target.value)} /></Field>
+              <Field label="البريد الإلكتروني" error={errors.email} id="contact-email"><input ref={emailRef} id="contact-email" type="email" inputMode="email" autoComplete="email" maxLength={254} value={values.email} aria-invalid={Boolean(errors.email)} aria-describedby={errors.email ? "contact-email-error" : undefined} onChange={(event) => update("email", event.target.value)} /></Field>
             </div>
           </fieldset>
           <fieldset className={styles.formGroup}>
             <legend>بيانات السؤال</legend>
-            <Field label="الاسم أو الاسم المستعار للسؤال" error={errors.displayName} id="display-name" hint="لا حاجة لاستخدام اسم التواصل هنا."><input ref={displayNameRef} id="display-name" maxLength={80} value={values.displayName} aria-invalid={Boolean(errors.displayName)} aria-describedby={errors.displayName ? "display-name-error" : undefined} onChange={(event) => update("displayName", event.target.value)} /></Field>
             <div className={styles.twoColumns}>
               <Field label="العمر" error={errors.age} id="age"><input ref={ageRef} id="age" type="number" min="18" max="100" inputMode="numeric" value={values.age} aria-invalid={Boolean(errors.age)} aria-describedby={errors.age ? "age-error" : undefined} onChange={(event) => update("age", event.target.value)} /></Field>
               <Field label="المنطقة" error={errors.region} id="region"><input ref={regionRef} id="region" maxLength={80} placeholder="مثال: الرياض" value={values.region} aria-invalid={Boolean(errors.region)} aria-describedby={errors.region ? "region-error" : undefined} onChange={(event) => update("region", event.target.value)} /></Field>
@@ -232,14 +224,7 @@ export function WeeklyLiveExperience({ initialLive, initialError = false }: { in
             <Field label="المدينة" error={errors.city} id="city"><input ref={cityRef} id="city" maxLength={100} placeholder="مثال: مدينة الرياض" value={values.city} aria-invalid={Boolean(errors.city)} aria-describedby={errors.city ? "city-error" : undefined} onChange={(event) => update("city", event.target.value)} /></Field>
             <Field label="السؤال" error={errors.question} id="question" hint={values.question.length + "/2000"}><textarea ref={questionRef} id="question" minLength={10} maxLength={2000} value={values.question} aria-invalid={Boolean(errors.question)} aria-describedby={errors.question ? "question-error" : undefined} onChange={(event) => update("question", event.target.value)} /></Field>
           </fieldset>
-          <fieldset className={styles.formGroup}>
-            <legend>الموافقات</legend>
-            <label className={styles.consent} htmlFor="question-consent"><input ref={questionConsentRef} id="question-consent" type="checkbox" checked={values.consent} aria-invalid={Boolean(errors.consent)} aria-describedby={errors.consent ? "question-consent-error" : undefined} onChange={(event) => update("consent", event.target.checked)} /><span>أوافق على استخدام البيانات الخاصة بالسؤال لتنظيم اللقاء ومراجعته، وأفهم أن اللقاء توعوي وليس استشارة طبية خاصة.</span></label>
-            {errors.consent ? <p className={styles.fieldError} id="question-consent-error">{errors.consent}</p> : null}
-            <label className={styles.consent} htmlFor="lead-privacy"><input ref={privacyRef} id="lead-privacy" type="checkbox" checked={values.privacyNoticeAccepted} aria-invalid={Boolean(errors.privacyNoticeAccepted)} aria-describedby={errors.privacyNoticeAccepted ? "lead-privacy-error" : undefined} onChange={(event) => update("privacyNoticeAccepted", event.target.checked)} /><span>قرأت إشعار الخصوصية وأوافق على معالجة بيانات التواصل اللازمة لإتمام طلبي والانضمام للقاء.</span></label>
-            {errors.privacyNoticeAccepted ? <p className={styles.fieldError} id="lead-privacy-error">{errors.privacyNoticeAccepted}</p> : null}
-            <label className={styles.consent} htmlFor="marketing-consent"><input id="marketing-consent" type="checkbox" checked={values.marketingConsent} onChange={(event) => update("marketingConsent", event.target.checked)} /><span>أوافق على التواصل معي لاحقًا بخصوص خدمات ومحتوى د. ناريمان. هذا الخيار اختياري.</span></label>
-          </fieldset>
+          <p className={styles.privacyDisclosure}>بإرسال البيانات، فإنك توافقين على معالجة بياناتك وفق سياسة الخصوصية.</p>
           <p className={styles.medicalNotice}>إرسال السؤال لا يُعد استشارة طبية خاصة أو تشخيصًا، واللقاء مخصص للتوعية والإجابة العامة.</p>
           {submissionError ? <div className={styles.submitError} ref={errorRef} tabIndex={-1} role="alert"><p>{submissionError.message}</p>{submissionError.refresh ? <button className={styles.textButton} type="button" onClick={() => void refresh()}>تحديث حالة اللقاء</button> : null}</div> : null}
           <button className={styles.submitButton} disabled={submitting} aria-busy={submitting}>{submitting ? "جارٍ إرسال السؤال…" : "إرسال السؤال والانضمام للقاء"}</button>

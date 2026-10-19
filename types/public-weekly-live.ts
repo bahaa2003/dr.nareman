@@ -15,14 +15,10 @@ export interface PublicWeeklyLiveQuestionInput {
   contactName: string;
   phone: string;
   email?: string;
-  displayName: string;
   age: number;
   region: string;
   city: string;
   question: string;
-  consent: true;
-  privacyNoticeAccepted: true;
-  marketingConsent: boolean;
   attribution?: {
     utmSource?: string;
     utmMedium?: string;

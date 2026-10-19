@@ -250,6 +250,17 @@
   line-height: 1.6;
 }
 
+.privacyDisclosure {
+  margin: 0;
+  border-radius: 14px;
+  background: rgba(191, 232, 223, 0.24);
+  color: var(--color-teal-deep);
+  font-size: 0.9rem;
+  font-weight: 650;
+  line-height: 1.75;
+  padding: 13px 14px;
+}
+
 .consent {
   display: flex;
   align-items: flex-start;

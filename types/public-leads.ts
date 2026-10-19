@@ -22,8 +22,16 @@ export interface CalculatorLeadInput {
   phone: string;
   email?: string;
   source: "ovulation_calculator";
-  privacyNoticeAccepted: true;
-  marketingConsent: boolean;
+  healthContext: {
+    ovulationCalculator: {
+      lastPeriodStart: string;
+      cycleLength: number;
+      estimatedOvulation: string;
+      fertileWindowStart: string;
+      fertileWindowEnd: string;
+      estimatedNextPeriod: string;
+    };
+  };
   attribution: CalculatorLeadAttribution;
 }
 

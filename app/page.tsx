@@ -58,10 +58,10 @@ export default async function Home({
         {weeklyLive ? <WeeklyLiveHomeCta live={weeklyLive} attributionSearch={weeklyLiveAttributionSearch} /> : null}
         <Hero />
         <AboutDoctor />
+        <TestimonialsSection testimonials={testimonials} />
         <Services />
         <OvulationCalculatorHomeCta attributionSearch={calculatorAttributionSearch} />
         <ArticlesSection articles={articles} state={articlesState} />
-        <TestimonialsSection testimonials={testimonials} />
         <BookingFinale />
       </main>
       <SiteFooter />
