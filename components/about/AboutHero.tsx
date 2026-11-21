@@ -37,7 +37,7 @@ export function AboutHero() {
         >
           <Image
             src={aboutDoctor.media.relaxed}
-            alt="د. ناريمان الطريري، استشارية علاج العقم وأطفال الأنابيب"
+            alt="د. ناريمان الطريري، استشارية علاج تأخر الحمل والإنجاب وأطفال الأنابيب"
             fill
             priority
             sizes="(max-width: 767px) 84vw, (max-width: 1100px) 48vw, 620px"
@@ -83,7 +83,7 @@ export function AboutHero() {
 
           <motion.div
             className={styles.experience}
-            aria-label="10+ سنوات خبرة"
+            aria-label="15+ سنوات خبرة"
             initial={reduceMotion ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...transition, delay: reduceMotion ? 0 : 0.62 }}

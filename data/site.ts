@@ -5,13 +5,13 @@ export const heroAssets = {
 
 export const siteContent = {
   doctorName: "د. ناريمان الطريري",
-  specialty: "استشارية علاج العقم وأطفال الأنابيب",
+  specialty: "استشارية علاج تأخر الحمل والإنجاب وأطفال الأنابيب",
   nav: [
     { label: "الرئيسية", href: "/" },
     { label: "عن الدكتورة", href: "/about" },
     { label: "الخدمات", href: "/services" },
     { label: "المدونة الطبية", href: "/articles" },
-    { label: "تواصل واحجزي", href: "/contact" }
+    { label: "تواصلي واحجزي", href: "/contact" }
   ],
   ctas: {
     booking: { label: "احجزي موعدك", href: "#booking" },
@@ -21,13 +21,13 @@ export const siteContent = {
 
 export const heroPhrases = [
   "رعاية متقدمة لرحلة أكثر اطمئنانًا",
-  "علاج العقم وتأخر الإنجاب بخطة واضحة",
+  "علاج تأخر الإنجاب بخطة واضحة",
   "أطفال الأنابيب والحقن المجهري بعناية متخصصة",
   "رعاية متكاملة لصحة المرأة الإنجابية"
 ];
 
 export const heroMobilePhrases = [
-  "علاج العقم",
+  "علاج تأخر الإنجاب",
   "أطفال الأنابيب",
   "الحقن المجهري"
 ];

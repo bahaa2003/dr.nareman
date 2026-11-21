@@ -185,14 +185,6 @@
   transition: transform 220ms ease, color 220ms ease;
 }
 
-.rowArrow {
-  position: absolute;
-  bottom: -2px;
-  left: -5px;
-  color: var(--color-pink);
-  transition: transform 220ms ease;
-}
-
 @media (hover: hover) {
   .row:hover {
     border-top-color: rgba(114, 189, 171, 0.78);
@@ -208,9 +200,6 @@
     transform: translateX(-4px);
   }
 
-  .row:hover .rowArrow {
-    transform: translate(-2px, 2px);
-  }
 }
 
 @media (max-width: 1023px) {
@@ -322,8 +311,4 @@
     height: 38px;
   }
 
-  .rowArrow {
-    bottom: -1px;
-    left: -4px;
-  }
 }

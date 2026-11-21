@@ -40,7 +40,7 @@ export function ContactHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={transition}
           >
-            تواصل واحجزي
+            تواصلي واحجزي
           </motion.p>
           <h1 id="contact-hero-title" className={styles.title}>
             {["خطوتك الأولى", "تبدأ بسؤال"].map((line, index) => (

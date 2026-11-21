@@ -9,10 +9,9 @@ import {
   CalendarDays,
   Dna,
   Microscope,
-  ScanSearch,
-  ShieldCheck,
-  Sparkles,
+  Snowflake,
   Syringe,
+  VenusAndMars,
   HeartPulse,
   type LucideIcon
 } from "lucide-react";
@@ -25,10 +24,9 @@ const iconMap: Record<MedicalService["icon"], LucideIcon> = {
   syringe: Syringe,
   baby: Baby,
   microscope: Microscope,
-  sparkles: Sparkles,
+  snowflake: Snowflake,
   dna: Dna,
-  scan: ScanSearch,
-  shield: ShieldCheck,
+  gender: VenusAndMars,
   pulse: HeartPulse
 };
 
@@ -176,7 +174,7 @@ export function Services() {
           >
             <p className={styles.eyebrow}>خدمات طبية متخصصة</p>
             <h2 id="services-title">
-              <AnimatedSectionTitle>رعاية متخصصة لكل مرحلة من رحلة العلاج</AnimatedSectionTitle>
+              <AnimatedSectionTitle>رعاية متخصصة لكل مرحلة من مراحل العلاج</AnimatedSectionTitle>
             </h2>
           </motion.div>
           <motion.p
@@ -186,7 +184,7 @@ export function Services() {
             viewport={isMobile ? { once: true, amount: 0.35 } : undefined}
             variants={introVariants}
           >
-            مسارات علاجية واضحة في العقم وتقنيات المساعدة على الإنجاب، مع تقييم طبي دقيق واختيار الإجراء الأنسب لكل حالة.
+            مسارات علاجية واضحة لتأخر الإنجاب وتقنيات المساعدة على الإنجاب، مع تقييم طبي دقيق واختيار الإجراء الأنسب لكل حالة.
           </motion.p>
         </div>
 

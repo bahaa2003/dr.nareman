@@ -11,7 +11,7 @@ export type FooterSocialLink = {
 export const footerContent = {
   brand: {
     name: "د. ناريمان الطريري",
-    specialty: "استشارية علاج العقم وأطفال الأنابيب"
+    specialty: "استشارية علاج تأخر الحمل والإنجاب وأطفال الأنابيب"
   },
   nav: [
     { label: "الرئيسية", href: "/" },

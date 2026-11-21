@@ -3,8 +3,8 @@ import { PublicGtm } from "@/components/analytics/PublicGtm";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "د. ناريمان الطريري | علاج العقم وأطفال الأنابيب",
-  description: "واجهة عربية لعيادة د. ناريمان الطريري، استشارية علاج العقم وأطفال الأنابيب."
+  title: "د. ناريمان الطريري | علاج تأخر الإنجاب وأطفال الأنابيب",
+  description: "واجهة عربية لعيادة د. ناريمان الطريري، استشارية علاج تأخر الحمل والإنجاب وأطفال الأنابيب."
 };
 
 export default function RootLayout({

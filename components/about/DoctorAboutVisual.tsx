@@ -21,7 +21,7 @@ export function DoctorAboutVisual() {
       className={styles.doctorVisual}
       variants={visualVariants}
       role="img"
-      aria-label="د. ناريمان الطريري، استشارية علاج العقم وأطفال الأنابيب"
+      aria-label="د. ناريمان الطريري، استشارية علاج تأخر الحمل والإنجاب وأطفال الأنابيب"
     >
       <svg className={styles.visualCurve} viewBox="0 0 620 520" aria-hidden="true" focusable="false">
         <path d="M52 346 C150 176 298 152 406 240 C500 318 540 284 592 164" />

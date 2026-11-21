@@ -1,6 +1,6 @@
 export type ServiceTone = "featured" | "mint" | "blush" | "white" | "teal";
 
-export type ServiceIconKey = "calendar" | "syringe" | "baby" | "microscope" | "sparkles" | "dna" | "scan" | "shield" | "pulse";
+export type ServiceIconKey = "calendar" | "syringe" | "baby" | "microscope" | "snowflake" | "dna" | "gender" | "pulse";
 
 export type MedicalService = {
   title: string;
@@ -19,21 +19,21 @@ export const servicesCta = {
 export const verifiedServices: MedicalService[] = [
   {
     title: "تحفيز ومتابعة الإباضة",
-    description: "تنشيط المبايض مع متابعة دقيقة بالموجات الصوتية والهرمونات لتحديد الوقت الأنسب.",
+    description: "تنشيط المبايض مع متابعة دقيقة بالموجات الصوتية لتحديد الوقت الأنسب للإبرة التفجيرية (المنضجة) ثم العلاقة الحميمية.",
     icon: "calendar",
     slug: "ovulation-monitoring",
     tone: "mint"
   },
   {
     title: "الحقن داخل الرحم (IUI)",
-    description: "إدخال الحيوانات المنوية داخل الرحم في وقت الإباضة لدعم فرص الالتقاء الطبيعي.",
+    description: "تنشيط المبايض مع متابعة دقيقة بالموجات الصوتية لتحديد الوقت الأنسب للإبرة التفجيرية (المنضجة) ثم إدخال الحيوانات المنوية.",
     icon: "syringe",
     slug: "iui",
     tone: "white"
   },
   {
     title: "أطفال الأنابيب (IVF)",
-    description: "تخصيب البويضات داخل المختبر، ثم نقل الأجنة إلى الرحم ضمن خطة علاجية واضحة.",
+    description: "سحب البويضات ثم تخصيبها داخل المختبر عن طريق التلقيح الذاتي للحيوانات المنوية، مع تنشيط المبايض واستخدام الإبرة التفجيرية (المنضجة).",
     icon: "baby",
     slug: "ivf",
     tone: "featured",
@@ -41,37 +41,30 @@ export const verifiedServices: MedicalService[] = [
   },
   {
     title: "التلقيح المجهري (ICSI)",
-    description: "حقن حيوان منوي واحد داخل البويضة، ويستخدم غالبًا مع ضعف الحيوانات المنوية.",
+    description: "حقن حيوان منوي واحد داخل البويضة.",
     icon: "microscope",
     slug: "icsi",
     tone: "teal"
   },
   {
     title: "تجميد الأجنة",
-    description: "حفظ الأجنة المخصبة بالتبريد لاستخدامها لاحقًا دون إعادة خطوات التنشيط كاملة.",
-    icon: "sparkles",
+    description: "حفظ البويضات المخصبة (أجنة) بالتجميد (التجفيف السريع).",
+    icon: "snowflake",
     slug: "embryo-freezing",
     tone: "blush"
   },
   {
-    title: "فحص الأجنة وراثيًا (PGD)",
-    description: "تحليل الأجنة قبل إرجاعها للرحم للكشف عن الأمراض الوراثية واختيار الأجنة السليمة.",
+    title: "فحص الأجنة",
+    description: "تؤخذ خزعة من الأجنة قبل إرجاعها للرحم للكشف عن الأمراض الوراثية والتأكد من سلامة عدد وتركيب الكروموسومات، واختيار الأجنة السليمة.",
     icon: "dna",
     slug: "pgd",
     tone: "mint"
   },
   {
-    title: "تحديد جنس الأجنة",
-    description: "تحديد جنس الجنين قبل إرجاعه للرحم ضمن إجراءات أطفال الأنابيب والفحص الوراثي.",
-    icon: "scan",
+    title: "تحديد جنس الأجنة (PGT-A)",
+    description: "تحديد جنس الجنين قبل إرجاعه للرحم ضمن إجراءات أطفال الأنابيب.",
+    icon: "gender",
     slug: "gender-selection",
-    tone: "white"
-  },
-  {
-    title: "الكشف عن أمراض الكروموسومات",
-    description: "فحص الأجنة للتأكد من سلامة عدد وتركيب الكروموسومات قبل الإرجاع.",
-    icon: "shield",
-    slug: "chromosome-screening",
     tone: "white"
   },
   {
@@ -80,13 +73,20 @@ export const verifiedServices: MedicalService[] = [
     icon: "pulse",
     slug: "laser-assisted-hatching",
     tone: "blush"
+  },
+  {
+    title: "استحثاث البطانة",
+    description: "إجراء طبي يهدف إلى تهيئة بطانة الرحم ودعم جاهزيتها لاستقبال الجنين وفق تقييم الحالة.",
+    icon: "pulse",
+    slug: "endometrial-induction",
+    tone: "white"
   }
 ];
 
 export const homepageServices = [
-  verifiedServices[2],
   verifiedServices[0],
   verifiedServices[1],
+  verifiedServices[2],
   verifiedServices[3],
   verifiedServices[4],
   verifiedServices[5]

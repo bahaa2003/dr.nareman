@@ -22,15 +22,17 @@ export function RecognitionStrip() {
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: reduceMotion ? 0 : 0.5, ease, delay: reduceMotion ? 0 : index * 0.1 }}
             >
-              <motion.span
-                className={styles.year}
-                initial={reduceMotion ? false : { opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.4 }}
-                transition={{ duration: reduceMotion ? 0 : 0.46, ease, delay: reduceMotion ? 0 : index * 0.1 }}
-              >
-                {recognition.year}
-              </motion.span>
+              {recognition.year ? (
+                <motion.span
+                  className={styles.year}
+                  initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ duration: reduceMotion ? 0 : 0.46, ease, delay: reduceMotion ? 0 : index * 0.1 }}
+                >
+                  {recognition.year}
+                </motion.span>
+              ) : null}
               <motion.span
                 className={styles.copy}
                 initial={reduceMotion ? false : { opacity: 0, y: 10 }}
@@ -39,7 +41,7 @@ export function RecognitionStrip() {
                 transition={{ duration: reduceMotion ? 0 : 0.46, ease, delay: reduceMotion ? 0 : 0.08 + index * 0.1 }}
               >
                 <strong>{recognition.title}</strong>
-                <span>{recognition.organization}</span>
+                {recognition.organization ? <span>{recognition.organization}</span> : null}
               </motion.span>
             </motion.li>
           ))}

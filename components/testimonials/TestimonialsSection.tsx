@@ -12,6 +12,7 @@ import { AnimatedSectionTitle } from "@/components/ui/AnimatedSectionTitle";
 import styles from "./TestimonialsSection.module.css";
 
 type TestimonialsSectionProps = { testimonials: PublicTestimonial[] };
+type SlidePosition = "previous" | "active" | "next";
 
 function useReducedMotion() {
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -61,6 +62,40 @@ function TestimonialLightbox({ testimonials, initialIndex, onClose }: { testimon
   </div>;
 }
 
+function TestimonialSlide({
+  testimonial,
+  index,
+  total,
+  position,
+  onExpand
+}: {
+  testimonial: PublicTestimonial;
+  index: number;
+  total: number;
+  position: SlidePosition;
+  onExpand: () => void;
+}) {
+  const isActive = position === "active";
+
+  return (
+    <article
+      className={`${styles.card} ${styles[position]}`}
+      aria-label={isActive ? `لقطة ${index + 1} من ${total}` : undefined}
+      aria-hidden={isActive ? undefined : true}
+    >
+      {isActive ? (
+        <button className={styles.imageButton} type="button" onClick={onExpand} aria-label={`تكبير الصورة: ${testimonial.image.alt}`}>
+          <img className={styles.image} src={resolveBackendAssetUrl(testimonial.image.url)} alt={testimonial.image.alt} />
+        </button>
+      ) : (
+        <div className={styles.sideImage}>
+          <img className={styles.image} src={resolveBackendAssetUrl(testimonial.image.url)} alt="" />
+        </div>
+      )}
+    </article>
+  );
+}
+
 export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -77,13 +112,23 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
 
   if (testimonials.length === 0) return null;
   const active = testimonials[activeIndex];
+  const visibleSlides: Array<{ testimonial: PublicTestimonial; index: number; position: SlidePosition }> = [
+    ...(testimonials.length > 2
+      ? [{ testimonial: testimonials[(activeIndex - 1 + testimonials.length) % testimonials.length], index: (activeIndex - 1 + testimonials.length) % testimonials.length, position: "previous" as const }]
+      : []),
+    { testimonial: active, index: activeIndex, position: "active" },
+    ...(testimonials.length > 1
+      ? [{ testimonial: testimonials[(activeIndex + 1) % testimonials.length], index: (activeIndex + 1) % testimonials.length, position: "next" as const }]
+      : [])
+  ];
 
   return <section id="testimonials" className={styles.section} aria-labelledby="testimonials-title">
     <div className={styles.inner}>
       <div className={styles.intro}><p className={styles.eyebrow}>تجارب تمت مشاركتها للنشر</p><h2 id="testimonials-title" className={styles.heading}><AnimatedSectionTitle>آراء وتجارب المراجعات</AnimatedSectionTitle></h2><p className={styles.lead}>لقطات من رسائل وتجارب تمت مشاركتها بعد مراجعة الخصوصية والموافقة على النشر.</p></div>
       <div className={styles.carousel} aria-roledescription="carousel" aria-label="لقطات من آراء وتجارب المراجعات" onMouseEnter={() => setIsInteracting(true)} onMouseLeave={() => setIsInteracting(false)} onFocusCapture={() => setIsInteracting(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setIsInteracting(false); }}>
         <div className={styles.viewport} onTouchStart={(event) => { const touch = event.changedTouches[0]; touchStart.current = { x: touch.clientX, y: touch.clientY }; }} onTouchEnd={(event) => { const start = touchStart.current; const touch = event.changedTouches[0]; touchStart.current = null; if (!start || Math.abs(touch.clientX - start.x) < 42 || Math.abs(touch.clientY - start.y) > Math.abs(touch.clientX - start.x)) return; move(touch.clientX < start.x ? 1 : -1); }}>
-          <article className={styles.card} aria-label={`لقطة ${activeIndex + 1} من ${testimonials.length}`}><button className={styles.imageButton} type="button" onClick={() => setLightboxIndex(activeIndex)} aria-label={`تكبير الصورة: ${active.image.alt}`}><img className={styles.image} src={resolveBackendAssetUrl(active.image.url)} alt={active.image.alt} /><span className={styles.expandHint}><Expand aria-hidden="true" size={17} />تكبير الصورة</span></button></article>
+          {visibleSlides.map((slide) => <TestimonialSlide key={`${slide.position}-${slide.testimonial.id}`} {...slide} total={testimonials.length} onExpand={() => setLightboxIndex(slide.index)} />)}
+          <button className={styles.expandAction} type="button" onClick={() => setLightboxIndex(activeIndex)}><Expand aria-hidden="true" size={17} />تكبير الصورة</button>
         </div>
         {testimonials.length > 1 ? <div className={styles.controls}><button type="button" onClick={() => move(-1)} aria-label="لقطة الرأي السابقة"><ChevronRight aria-hidden="true" size={21} />السابق</button><div className={styles.dots} aria-label="اختيار لقطة رأي">{testimonials.map((testimonial, index) => <button key={testimonial.id} type="button" className={index === activeIndex ? styles.activeDot : undefined} onClick={() => setActiveIndex(index)} aria-label={`عرض لقطة ${index + 1}`} aria-current={index === activeIndex ? "true" : undefined} />)}</div><button type="button" onClick={() => move(1)} aria-label="لقطة الرأي التالية">التالي<ChevronLeft aria-hidden="true" size={21} /></button></div> : null}
       </div>

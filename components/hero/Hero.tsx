@@ -58,7 +58,7 @@ function DesktopHero() {
           <Image
             className={styles.doctor}
             src={heroAssets.doctor}
-            alt="د. ناريمان الطريري، استشارية علاج العقم وأطفال الأنابيب"
+            alt="د. ناريمان الطريري، استشارية علاج تأخر الحمل والإنجاب وأطفال الأنابيب"
             fill
             sizes="(max-width: 768px) 78vw, 42vw"
             priority

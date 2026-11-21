@@ -50,7 +50,7 @@ export function MobileHero() {
           <Image
             className={styles.doctorImage}
             src={heroAssets.doctor}
-            alt="د. ناريمان الطريري، استشارية علاج العقم وأطفال الأنابيب"
+            alt="د. ناريمان الطريري، استشارية علاج تأخر الحمل والإنجاب وأطفال الأنابيب"
             width={576}
             height={1024}
             sizes="(max-width: 430px) 275px, (max-width: 767px) 300px, 0px"

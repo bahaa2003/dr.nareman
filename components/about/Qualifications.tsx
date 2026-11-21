@@ -85,10 +85,10 @@ export function Qualifications() {
                   viewport={{ once: true, amount: 0.4 }}
                   transition={{ duration: reduceMotion ? 0 : 0.48, ease, delay: reduceMotion ? 0 : 0.08 }}
                 >
-                  {String(index + 1).padStart(2, "0")}
+                  {qualification.year}
                 </motion.span>
               ) : (
-                <span className={styles.index}>{String(index + 1).padStart(2, "0")}</span>
+                <span className={styles.index}>{qualification.year}</span>
               )}
               {isFeatured ? (
                 <motion.h3

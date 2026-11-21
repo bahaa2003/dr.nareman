@@ -1,16 +1,14 @@
 "use client";
 
 import {
-  ArrowDownLeft,
   Baby,
   CalendarDays,
   Dna,
   HeartPulse,
   Microscope,
-  ScanSearch,
-  ShieldCheck,
-  Sparkles,
+  Snowflake,
   Syringe,
+  VenusAndMars,
   type LucideIcon
 } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
@@ -23,10 +21,9 @@ const iconMap: Record<MedicalService["icon"], LucideIcon> = {
   syringe: Syringe,
   baby: Baby,
   microscope: Microscope,
-  sparkles: Sparkles,
+  snowflake: Snowflake,
   dna: Dna,
-  scan: ScanSearch,
-  shield: ShieldCheck,
+  gender: VenusAndMars,
   pulse: HeartPulse
 };
 
@@ -34,9 +31,6 @@ const indexedServices = verifiedServices.map((service, index) => ({
   ...service,
   number: String(index + 1).padStart(2, "0")
 }));
-
-const featuredService = indexedServices.find((service) => service.featured);
-const remainingServices = indexedServices.filter((service) => !service.featured);
 
 export function AllServices() {
   const reduceMotion = useReducedMotion();
@@ -58,18 +52,20 @@ export function AllServices() {
           </h2>
         </motion.div>
 
-        {featuredService ? <FeaturedService service={featuredService} reduceMotion={Boolean(reduceMotion)} /> : null}
-
         <div className={styles.rows} aria-label="قائمة الخدمات الطبية">
-          {remainingServices.map((service, index) => (
-            <ServiceRow
-              key={service.slug}
-              service={service}
-              delay={index * 0.045}
-              initial={reveal}
-              reduceMotion={Boolean(reduceMotion)}
-            />
-          ))}
+          {indexedServices.map((service, index) =>
+            service.featured ? (
+              <FeaturedService key={service.slug} service={service} reduceMotion={Boolean(reduceMotion)} />
+            ) : (
+              <ServiceRow
+                key={service.slug}
+                service={service}
+                delay={index * 0.045}
+                initial={reveal}
+                reduceMotion={Boolean(reduceMotion)}
+              />
+            )
+          )}
         </div>
       </div>
     </section>
@@ -134,7 +130,6 @@ function ServiceRow({
       <p>{service.description}</p>
       <span className={styles.rowIcon} aria-hidden="true">
         <Icon size={22} strokeWidth={1.8} />
-        <ArrowDownLeft className={styles.rowArrow} size={17} strokeWidth={1.9} />
       </span>
     </motion.article>
   );
