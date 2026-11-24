@@ -15,7 +15,8 @@
   display: grid;
   gap: 10px;
   max-width: 760px;
-  margin-bottom: clamp(36px, 5vw, 64px);
+  margin: 0 auto clamp(36px, 5vw, 64px);
+  text-align: center;
 }
 
 .eyebrow {
@@ -38,6 +39,7 @@
 
 .featured {
   position: relative;
+  grid-column: 1 / -1;
   isolation: isolate;
   min-height: clamp(330px, 29vw, 390px);
   overflow: hidden;
@@ -133,21 +135,41 @@
 }
 
 .rows {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 26px);
   margin-top: clamp(34px, 4.2vw, 58px);
-  border-bottom: 1px solid rgba(7, 59, 65, 0.14);
 }
 
 .row {
+  position: relative;
   display: grid;
-  grid-template-columns: minmax(54px, 0.16fr) minmax(250px, 1.04fr) minmax(270px, 0.9fr) 62px;
-  gap: clamp(18px, 2.6vw, 42px);
-  min-height: 150px;
-  align-items: center;
+  min-height: 218px;
+  grid-template-columns: minmax(0, 1fr) 48px;
+  grid-template-areas:
+    "title icon"
+    "description description";
+  gap: 18px 22px;
+  align-content: start;
   scroll-margin-top: 112px;
-  border-top: 1px solid rgba(7, 59, 65, 0.14);
+  overflow: hidden;
+  border: 1px solid rgba(7, 59, 65, 0.1);
+  border-radius: 28px;
+  padding: clamp(24px, 2.6vw, 34px);
+  background: rgba(255, 253, 249, 0.8);
+  box-shadow: 0 14px 38px rgba(7, 59, 65, 0.055);
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background 220ms ease;
+}
+
+.row:nth-child(4n + 2),
+.row:nth-child(4n + 3) {
+  background: linear-gradient(145deg, rgba(235, 250, 245, 0.9), rgba(255, 253, 249, 0.86));
 }
 
 .rowNumber {
+  position: absolute;
+  top: clamp(24px, 2.6vw, 34px);
+  left: clamp(24px, 2.6vw, 34px);
   direction: ltr;
   color: rgba(7, 59, 65, 0.48);
   font-family: var(--font-display);
@@ -157,25 +179,30 @@
 }
 
 .row h3 {
+  grid-area: title;
   margin: 0;
+  padding-inline-start: 36px;
   color: var(--color-teal-deep);
   font-family: var(--font-display);
-  font-size: clamp(1.34rem, 2vw, 1.92rem);
+  font-size: clamp(1.28rem, 1.75vw, 1.68rem);
   font-weight: 700;
-  line-height: 1.35;
+  line-height: 1.42;
   transition: transform 220ms ease, color 220ms ease;
 }
 
 .row p {
+  grid-area: description;
+  max-width: 580px;
   margin: 0;
   color: #587072;
-  font-size: clamp(0.94rem, 1.12vw, 1.05rem);
+  font-size: clamp(0.94rem, 1.06vw, 1.02rem);
   font-weight: 500;
   line-height: 1.82;
 }
 
 .rowIcon {
   position: relative;
+  grid-area: icon;
   display: inline-flex;
   width: 46px;
   height: 46px;
@@ -187,7 +214,10 @@
 
 @media (hover: hover) {
   .row:hover {
-    border-top-color: rgba(114, 189, 171, 0.78);
+    border-color: rgba(114, 189, 171, 0.66);
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 22px 48px rgba(7, 59, 65, 0.1);
+    transform: translateY(-4px);
   }
 
   .row:hover h3 {
@@ -212,8 +242,7 @@
   }
 
   .row {
-    grid-template-columns: 54px minmax(210px, 1fr) minmax(220px, 0.85fr) 54px;
-    gap: 20px;
+    min-height: 228px;
   }
 }
 
@@ -283,25 +312,27 @@
   }
 
   .rows {
+    grid-template-columns: 1fr;
     margin-top: 30px;
+    gap: 14px;
   }
 
   .row {
-    grid-template-columns: 34px minmax(0, 1fr) 38px;
-    gap: 10px 14px;
     min-height: 0;
-    padding: 24px 0;
+    grid-template-columns: minmax(0, 1fr) 38px;
+    gap: 14px;
+    padding: 24px;
     scroll-margin-top: 76px;
   }
 
   .row h3 {
     align-self: center;
+    padding-inline-start: 30px;
     font-size: clamp(1.18rem, 5.5vw, 1.5rem);
     line-height: 1.38;
   }
 
   .row p {
-    grid-column: 2 / 4;
     font-size: 0.94rem;
     line-height: 1.75;
   }

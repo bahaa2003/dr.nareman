@@ -145,7 +145,7 @@
   left: clamp(44px, 7vw, 130px);
   bottom: -10px;
   z-index: 7;
-  width: clamp(340px, 25vw, 440px);
+  width: clamp(310px, 22.5vw, 395px);
   aspect-ratio: 0.5625;
   pointer-events: none;
 }
@@ -214,7 +214,7 @@
   .doctorWrap {
     left: clamp(14px, 4vw, 58px);
     bottom: -8px;
-    width: clamp(320px, 30vw, 400px);
+    width: clamp(292px, 27vw, 360px);
   }
 }
 
@@ -240,7 +240,7 @@
   .doctorWrap {
     left: -10px;
     bottom: -8px;
-    width: clamp(300px, 36vw, 360px);
+    width: clamp(276px, 33vw, 330px);
   }
 }
 

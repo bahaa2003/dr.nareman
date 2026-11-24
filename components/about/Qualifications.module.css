@@ -54,19 +54,22 @@
   position: relative;
   z-index: 1;
   display: grid;
-  min-height: 0;
-  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.1fr);
-  grid-template-rows: auto auto;
-  gap: clamp(42px, 5vw, 64px) clamp(48px, 7vw, 104px);
-  align-items: start;
-  margin-top: clamp(28px, 3.4vw, 46px);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(18px, 2.2vw, 30px);
+  margin-top: clamp(34px, 4vw, 54px);
 }
 
 .qualification {
   position: relative;
   display: grid;
-  gap: 6px;
-  max-width: 100%;
+  min-height: 250px;
+  gap: 8px;
+  align-content: start;
+  border: 1px solid rgba(12, 106, 112, 0.1);
+  border-radius: 28px;
+  padding: clamp(24px, 2.5vw, 34px);
+  background: rgba(255, 253, 249, 0.72);
+  box-shadow: 0 16px 42px rgba(7, 59, 65, 0.055);
 }
 
 .index {
@@ -95,23 +98,23 @@
 }
 
 .firstQualification {
-  grid-row: 1;
-  grid-column: 1;
-  width: min(100%, 420px);
+  grid-column: auto;
+  grid-row: auto;
+  width: auto;
 }
 
 .secondQualification {
-  grid-row: 1 / span 2;
-  grid-column: 2;
-  width: min(100%, 450px);
-  justify-self: start;
-  align-self: center;
-  padding: clamp(30px, 3.6vw, 50px) clamp(32px, 4vw, 58px);
+  grid-column: auto;
+  grid-row: auto;
+  width: auto;
+  padding: clamp(24px, 2.5vw, 34px);
+  background: linear-gradient(145deg, rgba(223, 244, 239, 0.88), rgba(255, 253, 249, 0.86));
+  box-shadow: 0 20px 48px rgba(7, 59, 65, 0.075);
 }
 
 .secondQualification h3 {
-  font-size: clamp(1.58rem, 2.7vw, 2.55rem);
-  line-height: 1.38;
+  font-size: clamp(1.3rem, 1.72vw, 1.58rem);
+  line-height: 1.55;
 }
 
 .secondQualification p {
@@ -124,11 +127,9 @@
 }
 
 .thirdQualification {
-  grid-row: 2;
-  grid-column: 1;
-  width: min(100%, 360px);
-  border-top: 1px solid rgba(12, 106, 112, 0.2);
-  padding-top: clamp(26px, 3vw, 38px);
+  grid-column: auto;
+  grid-row: auto;
+  width: auto;
 }
 
 .featureField {
@@ -153,29 +154,41 @@
 
 .backgroundWord {
   position: absolute;
-  top: 44%;
-  left: -0.18em;
+  top: 53%;
+  left: 50%;
   z-index: 0;
   color: rgba(7, 59, 65, 0.03);
   direction: ltr;
   font-family: var(--font-display);
-  font-size: clamp(11rem, 24vw, 23rem);
+  font-size: clamp(10rem, 18vw, 17rem);
   font-weight: 700;
   line-height: 0.76;
   letter-spacing: -0.12em;
   pointer-events: none;
+  transform: translateX(-50%);
   white-space: nowrap;
 }
 
 .pinkDot {
   position: absolute;
-  top: 44%;
-  left: 35%;
+  top: 55%;
+  left: 50%;
   z-index: 1;
   width: 9px;
   aspect-ratio: 1;
   border-radius: 50%;
   background: var(--color-pink);
+}
+
+@media (max-width: 980px) and (min-width: 768px) {
+  .canvas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .thirdQualification {
+    grid-column: 1 / -1;
+    min-height: 210px;
+  }
 }
 
 .accreditationRail {
