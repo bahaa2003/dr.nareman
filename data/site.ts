@@ -1,6 +1,6 @@
 export const heroAssets = {
   background: "/images/hero-medical-background.png",
-  doctor: "/images/doctor-cutout-v2.png"
+  doctor: "/images/doctor-hero-2026.avif"
 };
 
 export const siteContent = {

@@ -94,10 +94,10 @@ export function Header() {
         <Link className={styles.brand} href="/" aria-label={`${siteContent.doctorName} الصفحة الرئيسية`}>
           <Image
             className={styles.logoImage}
-            src="/images/nariman-logo-primary.png"
+            src="/images/nariman-logo-horizontal-2026.png"
             alt=""
-            width={1328}
-            height={514}
+            width={2740}
+            height={984}
             priority
           />
         </Link>

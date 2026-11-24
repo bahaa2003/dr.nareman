@@ -110,8 +110,8 @@ export const aboutDoctor = {
   },
   media: {
     mode: "image-sequence",
-    relaxed: "/images/about-doctor-relaxed.png",
+    relaxed: "/images/doctor-about-2026.avif",
     armsCrossed: "/images/about-doctor-arms-crossed.png",
-    fallback: "/images/about-doctor-arms-crossed.png"
+    fallback: "/images/doctor-home-2026.avif"
   }
 };
